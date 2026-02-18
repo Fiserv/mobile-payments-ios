@@ -111,7 +111,7 @@ public class BlockFontProvider: MobilePaymentsFontProvider {
 }
 ```
 Once specified, you pass the new MobilePaymentsFontProvider as `fonts: BlockFontProvider()` to `MobilePaymentsStyleProvider`.
-To customize only the font while using default values for other styling properties, pass only the color configuration
+To customize only the font while using default values for other styling properties, pass only the font configuration
 ```
 let color = BlockFontProvider()
 let style = MobilePaymentsStyleProvider(fonts: font)
@@ -153,7 +153,7 @@ public class BlockShapeProvider: MobilePaymentsShapeProvider {
 }
 ```
 Once specified, you pass the new MobilePaymentsShapeProvider as `shapes: BlockShapeProvider()` to `MobilePaymentsStyleProvider`.
-To customize only the font while using default values for other styling properties, pass only the color configuration
+To customize only the shape while using default values for other styling properties, pass only the shape configuration
 ```
 let color = BlockFontProvider()
 let style = MobilePaymentsStyleProvider(fonts: font)
@@ -168,7 +168,7 @@ MobilePayments.shared.setStyle(style)
 ## Copy
 There is a small collection of string values baked into the UI elements, generally page titles and button labels, that are also freely customizable, utilizing the native platform’s string and localization management behavior.
 
-**Warning:** Strings containing non-standard characters or of excessive length may impact UI negatively.  Test and review any changes before release to ensure compatibility with your designed copy.
+**Warning:** Strings containing non-standard characters or of excessive length may impact UI negatively.  Test and review any changes before release to ensure compatibility with your designated copy.
 
 The Mobile Payments iOS SDK utilizes the standard `Localizable.strings`, drawing from these values:
 ```
