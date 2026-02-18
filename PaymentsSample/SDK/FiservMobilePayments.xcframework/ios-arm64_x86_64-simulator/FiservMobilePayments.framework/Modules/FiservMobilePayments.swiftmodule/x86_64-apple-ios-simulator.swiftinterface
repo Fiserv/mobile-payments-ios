@@ -1,0 +1,636 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target x86_64-apple-ios16.4-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name FiservMobilePayments
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Combine
+import CryptoKit
+import DeveloperToolsSupport
+import Foundation
+import PassKit
+import Security
+import Swift
+import SwiftUI
+import UIKit
+import _Concurrency
+import _PassKit_SwiftUI
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+public enum Environment {
+  case sandbox
+  case production
+  public static func == (a: FiservMobilePayments.Environment, b: FiservMobilePayments.Environment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class MobilePayments {
+  public static let shared: FiservMobilePayments.MobilePayments
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func initialize(environment: FiservMobilePayments.Environment, clientToken: Swift.String, businessLocationId: Swift.String? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func setCustomerId(_ customerId: Swift.String?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func setBusinessLocationId(_ businessLocationId: Swift.String?)
+  #endif
+  final public func setStyle(_ provider: FiservMobilePayments.MobilePaymentsStyleProvider)
+  @objc deinit
+}
+public enum CreditCardType : Swift.String, Swift.Sendable, Swift.Codable {
+  case visa
+  case masterCard
+  case jcb
+  case amex
+  case discover
+  case diners
+  case unionpay
+  case maestro
+  case otherBrand
+  public init(from decoder: any Swift.Decoder) throws
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(stringValue: Any?)
+  #endif
+  public func toString() -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct BillingAddress : Swift.Codable, Swift.Sendable, Swift.Equatable {
+  public let addressLine1: Swift.String?
+  public let addressLine2: Swift.String?
+  public let addressLine3: Swift.String?
+  public let locality: Swift.String?
+  public let region: Swift.String?
+  public let postalCode: Swift.String
+  public let countrySubdivision: Swift.String?
+  public let country: Swift.String?
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(addressLine1: Swift.String?, addressLine2: Swift.String? = nil, addressLine3: Swift.String? = nil, locality: Swift.String?, region: Swift.String?, postalCode: Swift.String, country: Swift.String? = "US", countrySubdivision: Swift.String? = nil)
+  #endif
+  public static func == (lhs: FiservMobilePayments.BillingAddress, rhs: FiservMobilePayments.BillingAddress) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct Expiration : Swift.Sendable, Swift.Codable, Swift.Equatable {
+  public init(month: Swift.Int, year: Swift.Int)
+  public static func == (lhs: FiservMobilePayments.Expiration, rhs: FiservMobilePayments.Expiration) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct CreditCard : FiservMobilePayments.PaymentMethod, Swift.Equatable {
+  public static let paymentType: FiservMobilePayments.PaymentType
+  public var token: Swift.String?
+  public let billingAddress: FiservMobilePayments.BillingAddress?
+  public let nameOnCard: Swift.String?
+  public let expiration: FiservMobilePayments.Expiration?
+  public let cardType: FiservMobilePayments.CreditCardType
+  public let isUsersDefaultCard: Swift.Bool
+  public let lastFourDigits: Swift.String?
+  public let firstSixDigits: Swift.String?
+  public let requireCvv: Swift.Bool
+  public let email: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(billingAddress: FiservMobilePayments.BillingAddress?, nameOnCard: Swift.String?, cardNumber: Swift.String?, expiration: FiservMobilePayments.Expiration?, cvv: Swift.String?, cardType: FiservMobilePayments.CreditCardType, isUsersDefaultCard: Swift.Bool = false, lastFourDigits: Swift.String?, firstSixDigits: Swift.String?)
+  #endif
+  public static func == (lhs: FiservMobilePayments.CreditCard, rhs: FiservMobilePayments.CreditCard) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers final public class CreditCardManager {
+  public static let shared: FiservMobilePayments.CreditCardManager
+  #if compiler(>=5.3) && $NonescapableTypes && $AsyncExecutionBehaviorAttributes
+  nonisolated(nonsending) final public func retrieveCreditCards(customerId: Swift.String? = nil) async throws -> [FiservMobilePayments.CreditCard]
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func retrieveCreditCards(customerId: Swift.String? = nil, completion: ((Swift.Result<[FiservMobilePayments.CreditCard], any Swift.Error>) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes && $AsyncExecutionBehaviorAttributes
+  nonisolated(nonsending) final public func addCreditCard(creditCard: FiservMobilePayments.CreditCard, customerId: Swift.String? = nil, save: Swift.Bool) async throws -> FiservMobilePayments.CreditCard
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func addCreditCard(creditCard: FiservMobilePayments.CreditCard, customerId: Swift.String? = nil, save: Swift.Bool, completion: ((Swift.Result<FiservMobilePayments.CreditCard, any Swift.Error>) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func deleteCreditCard(creditCard: FiservMobilePayments.CreditCard) async throws
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func deleteCreditCard(creditCard: FiservMobilePayments.CreditCard, completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  #endif
+  @objc deinit
+}
+public struct CAFRequestAuthenticationHeaders {
+  public static var selectedTimeZone: Foundation.TimeZone?
+}
+public struct ApplePay : FiservMobilePayments.PaymentMethod {
+  public static let paymentType: FiservMobilePayments.PaymentType
+  public var token: Swift.String?
+  public var firstName: Swift.String?
+  public var lastName: Swift.String?
+  public init(payment: PassKit.PKPayment)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public enum PaymentType : Swift.String, Swift.Codable {
+  case creditCard
+  case giftCard
+  case applePay
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct Payment<Method> : Swift.Encodable where Method : FiservMobilePayments.PaymentMethod {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(clientTransactionId: Swift.String = UUID().uuidString, amount: Foundation.Decimal, paymentMethod: any FiservMobilePayments.PaymentMethod, merchantReference: Swift.String?)
+  #endif
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct Transaction : Swift.Equatable {
+  public var paymentTransactionKey: Swift.Int?
+  public var transactionId: Swift.String
+  public var clientTransactionId: Swift.String?
+  public var description: Swift.String?
+  public var cardType: Swift.String?
+  public var cardHolderName: Swift.String?
+  public var cardNumberLastFour: Swift.String?
+  public var paymentMethod: Swift.String?
+  public var amount: Foundation.Decimal
+  public var surcharge: Foundation.Decimal
+  public var currencyCode: Swift.String?
+  public var transactionDateTime: Foundation.Date?
+  public var transactionStatus: Swift.String?
+  public var gatewayResultCode: Swift.String?
+  public var gatewayResultMessage: Swift.String?
+  public var message: Swift.String?
+  public var failureReason: Swift.String?
+  public init(transactionId: Swift.String)
+  public static func == (lhs: FiservMobilePayments.Transaction, rhs: FiservMobilePayments.Transaction) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum TransactionType {
+  case sale
+  case auth
+  case void
+  case capture
+  public static func == (a: FiservMobilePayments.TransactionType, b: FiservMobilePayments.TransactionType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct TransactionResult {
+  public let transaction: FiservMobilePayments.Transaction?
+  public let error: (any Swift.Error)?
+}
+@_hasMissingDesignatedInitializers final public class PaymentManager {
+  public static let shared: FiservMobilePayments.PaymentManager
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func sale(payment: FiservMobilePayments.Payment<FiservMobilePayments.CreditCard>) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func sale(payment: FiservMobilePayments.Payment<FiservMobilePayments.CreditCard>, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func sale(payment: FiservMobilePayments.Payment<FiservMobilePayments.ApplePay>) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func sale(payment: FiservMobilePayments.Payment<FiservMobilePayments.ApplePay>, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func auth(payment: FiservMobilePayments.Payment<FiservMobilePayments.CreditCard>) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func auth(payment: FiservMobilePayments.Payment<FiservMobilePayments.CreditCard>, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func auth(payment: FiservMobilePayments.Payment<FiservMobilePayments.ApplePay>) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func auth(payment: FiservMobilePayments.Payment<FiservMobilePayments.ApplePay>, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func capture(transaction: FiservMobilePayments.Transaction) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func capture(transaction: FiservMobilePayments.Transaction, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func void(transaction: FiservMobilePayments.Transaction) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func void(transaction: FiservMobilePayments.Transaction, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func retrieveTransaction(transactionId: Swift.String) async -> FiservMobilePayments.TransactionResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func retrieveTransaction(transactionId: Swift.String, completion: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func createAPPaymentRequest(amount: Foundation.Decimal, applePayMerchantId: Swift.String) async throws -> PassKit.PKPaymentRequest?
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func canPayWithApplePay() async throws -> Swift.Bool
+  #endif
+  @objc deinit
+}
+public protocol PaymentMethod : Swift.Encodable, Swift.Sendable {
+  static var paymentType: FiservMobilePayments.PaymentType { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  var token: Swift.String? { get set }
+  #endif
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class ComponentWrapperView<Content> : UIKit.UIView where Content : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(rootView: Content)
+  @_Concurrency.MainActor @preconcurrency public func add(to parent: UIKit.UIViewController)
+  @objc deinit
+}
+public protocol CreditCardDetailsDelegate : AnyObject {
+  func onCardAdded(_ card: FiservMobilePayments.CreditCard)
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class CreditCardDetailsViewController : SwiftUI.UIHostingController<FiservMobilePayments.CreditCardDetailsModal> {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(customerId: Swift.String?, canSaveCard: Swift.Bool = true, amount: Foundation.Decimal? = nil, billingAddress: FiservMobilePayments.BillingAddress?, delegate: (any FiservMobilePayments.CreditCardDetailsDelegate)? = nil)
+  #endif
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class MobilePaymentsPurchaseViewController : SwiftUI.UIHostingController<FiservMobilePayments.MobilePaymentsPurchaseView> {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(amount: Foundation.Decimal, customerId: Swift.String?, requireCvv: Swift.Bool? = nil, billingAddress: FiservMobilePayments.BillingAddress? = nil, applePayMerchantId: Swift.String?, applePayButtonLabel: _PassKit_SwiftUI.PayWithApplePayButtonLabel = .checkout, applePayButtonStyle: _PassKit_SwiftUI.PayWithApplePayButtonStyle = .automatic, transactionType: FiservMobilePayments.TransactionType = .sale, clientTransactionId: Swift.String? = nil, merchantReference: Swift.String? = nil, delegate: (any FiservMobilePayments.MobilePaymentsPurchaseDelegate)? = nil)
+  #endif
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class UICreditCardDetailsView : FiservMobilePayments.ComponentWrapperView<FiservMobilePayments.CreditCardDetailsView> {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(customerId: Swift.String?, canSaveCard: Swift.Bool = true, amount: Foundation.Decimal? = nil, billingAddress: FiservMobilePayments.BillingAddress?, delegate: (any FiservMobilePayments.CreditCardDetailsDelegate)? = nil)
+  #endif
+  @objc deinit
+}
+public protocol CreditCardListDelegate : AnyObject {
+  func onCreditCardSelected(card: FiservMobilePayments.CreditCard)
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class UICreditCardListView : FiservMobilePayments.ComponentWrapperView<FiservMobilePayments.CreditCardListView> {
+  @_Concurrency.MainActor @preconcurrency weak public var delegate: (any FiservMobilePayments.CreditCardListDelegate)?
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(state: FiservMobilePayments.PaymentState, customerId: Swift.String? = nil, scrollingEnabled: Swift.Bool = true, showSelector: Swift.Bool = true, requireCvv: Swift.Bool? = nil, canAddCards: Swift.Bool = true, delegate: (any FiservMobilePayments.CreditCardListDelegate)? = nil)
+  #endif
+  @objc deinit
+}
+public protocol PurchaseButtonDelegate : AnyObject {
+  func onTransactionCompleted(result: FiservMobilePayments.TransactionResult)
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class UIPurchaseButton : FiservMobilePayments.ComponentWrapperView<FiservMobilePayments.PurchaseButton> {
+  @_Concurrency.MainActor @preconcurrency weak public var delegate: (any FiservMobilePayments.PurchaseButtonDelegate)?
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(state: FiservMobilePayments.PaymentState, showTotal: Swift.Bool = true, transationType: FiservMobilePayments.TransactionType = .sale, customerId: Swift.String? = nil, canSaveCard: Swift.Bool = true, purchaseButtonOperationMode: FiservMobilePayments.PurchaseButtonOperationMode = .standard, autoSubmitAfterAddingCard: Swift.Bool = false, billingAddress: FiservMobilePayments.BillingAddress?, clientTransactionId: Swift.String? = nil, merchantReference: Swift.String? = nil, delegate: any FiservMobilePayments.PurchaseButtonDelegate)
+  #endif
+  @objc deinit
+}
+@_Concurrency.MainActor @preconcurrency public struct CreditCardDetailsModal : SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @SwiftUICore.State @_projectedValueProperty($customerId) @_Concurrency.MainActor @preconcurrency public var customerId: Swift.String? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    nonmutating set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    nonmutating _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public var $customerId: SwiftUICore.Binding<Swift.String?> {
+    get
+  }
+  #endif
+  @_Concurrency.MainActor @preconcurrency public var canSaveCard: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public var amount: Foundation.Decimal?
+  @_Concurrency.MainActor @preconcurrency public var billingAddress: FiservMobilePayments.BillingAddress?
+  @_Concurrency.MainActor @preconcurrency public var onCreditCardAdded: ((FiservMobilePayments.CreditCard) -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s20FiservMobilePayments22CreditCardDetailsModalV4bodyQrvp", 0) __
+}
+@_Concurrency.MainActor @preconcurrency public struct CreditCardDetailsView : SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @SwiftUICore.State @_projectedValueProperty($customerId) @_Concurrency.MainActor @preconcurrency public var customerId: Swift.String? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    nonmutating set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    nonmutating _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public var $customerId: SwiftUICore.Binding<Swift.String?> {
+    get
+  }
+  #endif
+  @_Concurrency.MainActor @preconcurrency public var canSaveCard: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public var amount: Foundation.Decimal?
+  @_Concurrency.MainActor @preconcurrency public var billingAddress: FiservMobilePayments.BillingAddress?
+  @_Concurrency.MainActor @preconcurrency public var onCreditCardAdded: ((FiservMobilePayments.CreditCard) -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s20FiservMobilePayments21CreditCardDetailsViewV4bodyQrvp", 0) __
+}
+@_Concurrency.MainActor @preconcurrency public struct CreditCardListView : SwiftUICore.View {
+  @SwiftUICore.ObservedObject @_projectedValueProperty($state) @_Concurrency.MainActor @preconcurrency public var state: FiservMobilePayments.PaymentState {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  @_Concurrency.MainActor @preconcurrency public var $state: SwiftUICore.ObservedObject<FiservMobilePayments.PaymentState>.Wrapper {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(state: FiservMobilePayments.PaymentState, customerId: Swift.String? = nil, scrollingEnabled: Swift.Bool = true, showSelector: Swift.Bool = true, requireCvv: Swift.Bool? = nil, canAddCards: Swift.Bool = true, onCreditCardSelected: ((FiservMobilePayments.CreditCard) -> Swift.Void)? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s20FiservMobilePayments18CreditCardListViewV4bodyQrvp", 0) __
+}
+public class PaymentState : Combine.ObservableObject {
+  @Combine.Published @_projectedValueProperty($amount) public var amount: Foundation.Decimal {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $amount: Combine.Published<Foundation.Decimal>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($creditCards) public var creditCards: [FiservMobilePayments.CreditCard] {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $creditCards: Combine.Published<[FiservMobilePayments.CreditCard]>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @Combine.Published @_projectedValueProperty($selectedPayment) public var selectedPayment: FiservMobilePayments.CreditCard? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var $selectedPayment: Combine.Published<FiservMobilePayments.CreditCard?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #endif
+  @Combine.Published @_projectedValueProperty($selectedPaymentValid) public var selectedPaymentValid: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $selectedPaymentValid: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($transactionInProgress) public var transactionInProgress: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $transactionInProgress: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(amount: Foundation.Decimal = 0, selectedPayment: FiservMobilePayments.CreditCard? = nil)
+  #endif
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public enum PurchaseButtonOperationMode {
+  case oneTimeUse
+  case standard
+  public static func == (a: FiservMobilePayments.PurchaseButtonOperationMode, b: FiservMobilePayments.PurchaseButtonOperationMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_Concurrency.MainActor @preconcurrency public struct PurchaseButton : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public var showTotal: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public var transactionType: FiservMobilePayments.TransactionType
+  @_Concurrency.MainActor @preconcurrency public var customerId: Swift.String?
+  @_Concurrency.MainActor @preconcurrency public var canSaveCard: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public var purchaseButtonOperationMode: FiservMobilePayments.PurchaseButtonOperationMode
+  @_Concurrency.MainActor @preconcurrency public var autoSubmitAfterAddingCard: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public var billingAddress: FiservMobilePayments.BillingAddress?
+  @_Concurrency.MainActor @preconcurrency public var clientTransactionId: Swift.String?
+  @_Concurrency.MainActor @preconcurrency public var merchantReference: Swift.String?
+  @_Concurrency.MainActor @preconcurrency public var transactionCompleted: ((FiservMobilePayments.TransactionResult) -> Swift.Void)?
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(state: FiservMobilePayments.PaymentState, showTotal: Swift.Bool = true, transactionType: FiservMobilePayments.TransactionType = .sale, customerId: Swift.String? = nil, canSaveCard: Swift.Bool = true, purchaseButtonOperationMode: FiservMobilePayments.PurchaseButtonOperationMode = .standard, autoSubmitAfterAddingCard: Swift.Bool = false, billingAddress: FiservMobilePayments.BillingAddress? = nil, clientTransactionId: Swift.String? = nil, merchantReference: Swift.String? = nil, transactionCompleted: ((FiservMobilePayments.TransactionResult) -> Swift.Void)? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s20FiservMobilePayments14PurchaseButtonV4bodyQrvp", 0) __
+}
+extension UIKit.UIColor {
+  convenience public init(fromRGBHex hexColor: Swift.String, alpha: Swift.Float = 1.0)
+  convenience public init(redInt: Swift.Int, greenInt: Swift.Int, blueInt: Swift.Int, alpha: CoreFoundation.CGFloat)
+  public func toHexString() -> Swift.String
+  public func toColor() -> SwiftUICore.Color
+}
+public protocol MobilePaymentsPurchaseDelegate {
+  func onTransactionCompleted(transaction: FiservMobilePayments.Transaction)
+  func onTransactionCanceled()
+}
+@_Concurrency.MainActor @preconcurrency public struct MobilePaymentsPurchaseView : SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(amount: Foundation.Decimal, customerId: Swift.String?, requireCvv: Swift.Bool? = nil, billingAddress: FiservMobilePayments.BillingAddress? = nil, applePayMerchantId: Swift.String?, applePayButtonLabel: _PassKit_SwiftUI.PayWithApplePayButtonLabel = .checkout, applePayButtonStyle: _PassKit_SwiftUI.PayWithApplePayButtonStyle = .automatic, transactionType: FiservMobilePayments.TransactionType = .sale, clientTransactionId: Swift.String? = nil, merchantReference: Swift.String? = nil, delegate: (any FiservMobilePayments.MobilePaymentsPurchaseDelegate)? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s20FiservMobilePayments0bC12PurchaseViewV4bodyQrvp", 0) __
+}
+public protocol MobilePaymentsColorProvider {
+  var primary: UIKit.UIColor { get }
+  var disabled: UIKit.UIColor { get }
+  var success: UIKit.UIColor { get }
+  var error: UIKit.UIColor { get }
+  var darkText: UIKit.UIColor { get }
+  var mediumText: UIKit.UIColor { get }
+  var lightBackground: UIKit.UIColor { get }
+  var lightText: UIKit.UIColor { get }
+  var background: UIKit.UIColor { get }
+}
+extension FiservMobilePayments.MobilePaymentsColorProvider {
+  public var primary: UIKit.UIColor {
+    get
+  }
+  public var disabled: UIKit.UIColor {
+    get
+  }
+  public var success: UIKit.UIColor {
+    get
+  }
+  public var error: UIKit.UIColor {
+    get
+  }
+  public var darkText: UIKit.UIColor {
+    get
+  }
+  public var mediumText: UIKit.UIColor {
+    get
+  }
+  public var lightBackground: UIKit.UIColor {
+    get
+  }
+  public var lightText: UIKit.UIColor {
+    get
+  }
+  public var background: UIKit.UIColor {
+    get
+  }
+}
+public struct DefaultMobilePaymentsColorProvider : FiservMobilePayments.MobilePaymentsColorProvider {
+  public init()
+}
+public protocol FontFamily {
+  var regular: UIKit.UIFont { get }
+  var bold: UIKit.UIFont { get }
+}
+public protocol MobilePaymentsFontProvider {
+  var headerFont: any FiservMobilePayments.FontFamily { get }
+  var bodyFont: any FiservMobilePayments.FontFamily { get }
+}
+extension FiservMobilePayments.MobilePaymentsFontProvider {
+  public var headerFont: any FiservMobilePayments.FontFamily {
+    get
+  }
+  public var bodyFont: any FiservMobilePayments.FontFamily {
+    get
+  }
+}
+public struct DefaultMobilePaymentsFontProvider : FiservMobilePayments.MobilePaymentsFontProvider {
+  public init()
+}
+public protocol MobilePaymentsShapeProvider {
+  var buttonCornerRadius: CoreFoundation.CGFloat { get }
+  var cornerRadius: CoreFoundation.CGFloat { get }
+  var textFieldCornerRadius: CoreFoundation.CGFloat { get }
+  var selectedBorderThickness: CoreFoundation.CGFloat { get }
+  var borderThickness: CoreFoundation.CGFloat { get }
+}
+extension FiservMobilePayments.MobilePaymentsShapeProvider {
+  public var buttonCornerRadius: CoreFoundation.CGFloat {
+    get
+  }
+  public var cornerRadius: CoreFoundation.CGFloat {
+    get
+  }
+  public var textFieldCornerRadius: CoreFoundation.CGFloat {
+    get
+  }
+  public var selectedBorderThickness: CoreFoundation.CGFloat {
+    get
+  }
+  public var borderThickness: CoreFoundation.CGFloat {
+    get
+  }
+}
+public struct DefaultMobilePaymentsShapeProvider : FiservMobilePayments.MobilePaymentsShapeProvider {
+  public init()
+}
+public struct MobilePaymentsStyleProvider {
+  public var colors: any FiservMobilePayments.MobilePaymentsColorProvider
+  public var fonts: any FiservMobilePayments.MobilePaymentsFontProvider
+  public var shapes: any FiservMobilePayments.MobilePaymentsShapeProvider
+  public init(colors: any FiservMobilePayments.MobilePaymentsColorProvider = DefaultMobilePaymentsColorProvider(), fonts: any FiservMobilePayments.MobilePaymentsFontProvider = DefaultMobilePaymentsFontProvider(), shapes: any FiservMobilePayments.MobilePaymentsShapeProvider = DefaultMobilePaymentsShapeProvider())
+}
+public enum MobilePaymentsApplePayResult : Swift.Equatable {
+  case success(FiservMobilePayments.Transaction)
+  case failure(FiservMobilePayments.ApplePayTransactionError)
+  case dismissed
+  public static func == (lhs: FiservMobilePayments.MobilePaymentsApplePayResult, rhs: FiservMobilePayments.MobilePaymentsApplePayResult) -> Swift.Bool
+}
+public struct ApplePayTransactionError {
+  public let transaction: FiservMobilePayments.Transaction?
+  public let error: any Swift.Error
+}
+@objc @_inheritsConvenienceInitializers public class MobilePaymentsApplePayCoordinator : ObjectiveC.NSObject, Foundation.ObservableObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @Combine.Published @_projectedValueProperty($paymentResults) public var paymentResults: FiservMobilePayments.MobilePaymentsApplePayResult? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var $paymentResults: Combine.Published<FiservMobilePayments.MobilePaymentsApplePayResult?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes && $AsyncExecutionBehaviorAttributes
+  nonisolated(nonsending) public func performTransaction(amount: Foundation.Decimal, applePayMerchantId: Swift.String, transactionType: FiservMobilePayments.TransactionType = .sale, clientTransactionId: Swift.String? = nil, merchantReference: Swift.String? = nil) async
+  #endif
+  @objc override dynamic public init()
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+extension FiservMobilePayments.MobilePaymentsApplePayCoordinator : PassKit.PKPaymentAuthorizationViewControllerDelegate {
+  @objc dynamic public func paymentAuthorizationViewControllerDidFinish(_ controller: PassKit.PKPaymentAuthorizationViewController)
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  @objc nonisolated(nonsending) dynamic public func paymentAuthorizationViewController(_ controller: PassKit.PKPaymentAuthorizationViewController, didAuthorizePayment payment: PassKit.PKPayment) async -> PassKit.PKPaymentAuthorizationResult
+  #endif
+}
+extension FiservMobilePayments.Environment : Swift.Equatable {}
+extension FiservMobilePayments.Environment : Swift.Hashable {}
+extension FiservMobilePayments.CreditCardType : Swift.Equatable {}
+extension FiservMobilePayments.CreditCardType : Swift.Hashable {}
+extension FiservMobilePayments.CreditCardType : Swift.RawRepresentable {}
+extension FiservMobilePayments.PaymentType : Swift.Equatable {}
+extension FiservMobilePayments.PaymentType : Swift.Hashable {}
+extension FiservMobilePayments.PaymentType : Swift.RawRepresentable {}
+extension FiservMobilePayments.Transaction : Swift.Encodable {}
+extension FiservMobilePayments.Transaction : Swift.Decodable {}
+extension FiservMobilePayments.TransactionType : Swift.Equatable {}
+extension FiservMobilePayments.TransactionType : Swift.Hashable {}
+extension FiservMobilePayments.CreditCardDetailsModal : Swift.Sendable {}
+extension FiservMobilePayments.CreditCardDetailsView : Swift.Sendable {}
+extension FiservMobilePayments.CreditCardListView : Swift.Sendable {}
+extension FiservMobilePayments.PurchaseButtonOperationMode : Swift.Equatable {}
+extension FiservMobilePayments.PurchaseButtonOperationMode : Swift.Hashable {}
+extension FiservMobilePayments.PurchaseButton : Swift.Sendable {}
+extension FiservMobilePayments.MobilePaymentsPurchaseView : Swift.Sendable {}

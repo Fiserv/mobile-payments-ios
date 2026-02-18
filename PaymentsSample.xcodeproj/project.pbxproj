@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9D656FF42F4516E800E6C21F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D656FF32F4516E800E6C21F /* README.md */; };
+		9D65724A2F4525D400E6C21F /* sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572252F4525D400E6C21F /* sheet.png */; };
+		9D6572742F4525D400E6C21F /* ui_components.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572232F4525D400E6C21F /* ui_components.md */; };
+		9D6572842F4525D400E6C21F /* sheet_custom_font.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572272F4525D400E6C21F /* sheet_custom_font.png */; };
+		9D6572852F4525D400E6C21F /* sheets.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572222F4525D400E6C21F /* sheets.md */; };
+		9D6572902F4525D400E6C21F /* uicomponents.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D65722D2F4525D400E6C21F /* uicomponents.png */; };
+		9D6572922F4525D400E6C21F /* customization.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D65721E2F4525D400E6C21F /* customization.md */; };
+		9D65729B2F4525D400E6C21F /* sheet_default_font.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D65722A2F4525D400E6C21F /* sheet_default_font.png */; };
+		9D6572C22F4525D400E6C21F /* direct.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D65721F2F4525D400E6C21F /* direct.md */; };
+		9D6573302F4525D400E6C21F /* singlecardmode.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D65722C2F4525D400E6C21F /* singlecardmode.png */; };
+		9D6573AA2F4525D400E6C21F /* sheet_default_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572292F4525D400E6C21F /* sheet_default_color.png */; };
+		9D6573C12F4525D400E6C21F /* sheet_custom_shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572282F4525D400E6C21F /* sheet_custom_shapes.png */; };
+		9D6573E72F4525D400E6C21F /* sheet_custom_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6572262F4525D400E6C21F /* sheet_custom_color.png */; };
+		9D6573F82F4525D400E6C21F /* sheet_default_shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D65722B2F4525D400E6C21F /* sheet_default_shapes.png */; };
+		9D6574032F458B7200E6C21F /* apple_pay.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D6574022F458B7200E6C21F /* apple_pay.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9D656FCA2F45118E00E6C21F /* PaymentsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaymentsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D656FF32F4516E800E6C21F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9D65721E2F4525D400E6C21F /* customization.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = customization.md; sourceTree = "<group>"; };
+		9D65721F2F4525D400E6C21F /* direct.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = direct.md; sourceTree = "<group>"; };
+		9D6572222F4525D400E6C21F /* sheets.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = sheets.md; sourceTree = "<group>"; };
+		9D6572232F4525D400E6C21F /* ui_components.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ui_components.md; sourceTree = "<group>"; };
+		9D6572252F4525D400E6C21F /* sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet.png; sourceTree = "<group>"; };
+		9D6572262F4525D400E6C21F /* sheet_custom_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet_custom_color.png; sourceTree = "<group>"; };
+		9D6572272F4525D400E6C21F /* sheet_custom_font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet_custom_font.png; sourceTree = "<group>"; };
+		9D6572282F4525D400E6C21F /* sheet_custom_shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet_custom_shapes.png; sourceTree = "<group>"; };
+		9D6572292F4525D400E6C21F /* sheet_default_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet_default_color.png; sourceTree = "<group>"; };
+		9D65722A2F4525D400E6C21F /* sheet_default_font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet_default_font.png; sourceTree = "<group>"; };
+		9D65722B2F4525D400E6C21F /* sheet_default_shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet_default_shapes.png; sourceTree = "<group>"; };
+		9D65722C2F4525D400E6C21F /* singlecardmode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singlecardmode.png; sourceTree = "<group>"; };
+		9D65722D2F4525D400E6C21F /* uicomponents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uicomponents.png; sourceTree = "<group>"; };
+		9D6574022F458B7200E6C21F /* apple_pay.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = apple_pay.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9D6570032F451AAB00E6C21F /* Exceptions for "PaymentsSample" folder in "PaymentsSample" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9D656FC92F45118E00E6C21F /* PaymentsSample */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9D656FCC2F45118E00E6C21F /* PaymentsSample */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9D6570032F451AAB00E6C21F /* Exceptions for "PaymentsSample" folder in "PaymentsSample" target */,
+			);
+			path = PaymentsSample;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9D656FC72F45118E00E6C21F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9D656FC12F45118E00E6C21F = {
+			isa = PBXGroup;
+			children = (
+				9D6572242F4525D400E6C21F /* docs */,
+				9D65722E2F4525D400E6C21F /* images */,
+				9D656FF32F4516E800E6C21F /* README.md */,
+				9D656FCC2F45118E00E6C21F /* PaymentsSample */,
+				9D656FCB2F45118E00E6C21F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9D656FCB2F45118E00E6C21F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9D656FCA2F45118E00E6C21F /* PaymentsSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9D6572242F4525D400E6C21F /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				9D6574022F458B7200E6C21F /* apple_pay.md */,
+				9D65721E2F4525D400E6C21F /* customization.md */,
+				9D65721F2F4525D400E6C21F /* direct.md */,
+				9D6572222F4525D400E6C21F /* sheets.md */,
+				9D6572232F4525D400E6C21F /* ui_components.md */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		9D65722E2F4525D400E6C21F /* images */ = {
+			isa = PBXGroup;
+			children = (
+				9D6572252F4525D400E6C21F /* sheet.png */,
+				9D6572262F4525D400E6C21F /* sheet_custom_color.png */,
+				9D6572272F4525D400E6C21F /* sheet_custom_font.png */,
+				9D6572282F4525D400E6C21F /* sheet_custom_shapes.png */,
+				9D6572292F4525D400E6C21F /* sheet_default_color.png */,
+				9D65722A2F4525D400E6C21F /* sheet_default_font.png */,
+				9D65722B2F4525D400E6C21F /* sheet_default_shapes.png */,
+				9D65722C2F4525D400E6C21F /* singlecardmode.png */,
+				9D65722D2F4525D400E6C21F /* uicomponents.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9D656FC92F45118E00E6C21F /* PaymentsSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D656FD52F45118F00E6C21F /* Build configuration list for PBXNativeTarget "PaymentsSample" */;
+			buildPhases = (
+				9D656FC62F45118E00E6C21F /* Sources */,
+				9D656FC72F45118E00E6C21F /* Frameworks */,
+				9D656FC82F45118E00E6C21F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9D656FCC2F45118E00E6C21F /* PaymentsSample */,
+			);
+			name = PaymentsSample;
+			packageProductDependencies = (
+			);
+			productName = PaymentsSample;
+			productReference = 9D656FCA2F45118E00E6C21F /* PaymentsSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9D656FC22F45118E00E6C21F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					9D656FC92F45118E00E6C21F = {
+						CreatedOnToolsVersion = 26.0;
+					};
+				};
+			};
+			buildConfigurationList = 9D656FC52F45118E00E6C21F /* Build configuration list for PBXProject "PaymentsSample" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9D656FC12F45118E00E6C21F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9D656FCB2F45118E00E6C21F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9D656FC92F45118E00E6C21F /* PaymentsSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9D656FC82F45118E00E6C21F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D656FF42F4516E800E6C21F /* README.md in Resources */,
+				9D65724A2F4525D400E6C21F /* sheet.png in Resources */,
+				9D6572742F4525D400E6C21F /* ui_components.md in Resources */,
+				9D6572842F4525D400E6C21F /* sheet_custom_font.png in Resources */,
+				9D6572852F4525D400E6C21F /* sheets.md in Resources */,
+				9D6572902F4525D400E6C21F /* uicomponents.png in Resources */,
+				9D6574032F458B7200E6C21F /* apple_pay.md in Resources */,
+				9D6572922F4525D400E6C21F /* customization.md in Resources */,
+				9D65729B2F4525D400E6C21F /* sheet_default_font.png in Resources */,
+				9D6572C22F4525D400E6C21F /* direct.md in Resources */,
+				9D6573302F4525D400E6C21F /* singlecardmode.png in Resources */,
+				9D6573AA2F4525D400E6C21F /* sheet_default_color.png in Resources */,
+				9D6573C12F4525D400E6C21F /* sheet_custom_shapes.png in Resources */,
+				9D6573E72F4525D400E6C21F /* sheet_custom_color.png in Resources */,
+				9D6573F82F4525D400E6C21F /* sheet_default_shapes.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9D656FC62F45118E00E6C21F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9D656FD32F45118F00E6C21F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GP9TA5USYP;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9D656FD42F45118F00E6C21F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = GP9TA5USYP;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9D656FD62F45118F00E6C21F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GP9TA5USYP;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PaymentsSample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mobile Payments SDK";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardfree.PaymentsSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9D656FD72F45118F00E6C21F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GP9TA5USYP;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PaymentsSample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mobile Payments SDK";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardfree.PaymentsSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9D656FC52F45118E00E6C21F /* Build configuration list for PBXProject "PaymentsSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D656FD32F45118F00E6C21F /* Debug */,
+				9D656FD42F45118F00E6C21F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D656FD52F45118F00E6C21F /* Build configuration list for PBXNativeTarget "PaymentsSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D656FD62F45118F00E6C21F /* Debug */,
+				9D656FD72F45118F00E6C21F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9D656FC22F45118E00E6C21F /* Project object */;
+}
