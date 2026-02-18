@@ -1,5 +1,5 @@
 //
-//  OneTimeUse.swift
+//  GuestCheckoutView.swift
 //  PaymentsSample
 //
 //  Created by Allan Cheng on 2/14/26.
@@ -10,7 +10,7 @@ import FiservMobilePayments
 import PassKit
 
 // View to showcase how the PurchaseButton oneTimeUse operation mode
-struct OneTimeUseView: View {
+struct GuestCheckoutView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
     @ObservedObject var paymentState: PaymentState = PaymentState()
@@ -100,8 +100,8 @@ struct OneTimeUseView: View {
                             paymentState.transactionInProgress = true
                             Task {
                                 // Use the SDK's MobilePaymentsApplePayCoordinator to start the Apple Pay flow
-                                await applePayCoordinator.makeSalesPayment(amount: total,
-                                                                           applePayMerchantId: applePayMerchantId)
+                                await applePayCoordinator.performTransaction(amount: total,
+                                                                             applePayMerchantId: applePayMerchantId)
                             }
                         })
                         .padding(.horizontal)
@@ -111,7 +111,7 @@ struct OneTimeUseView: View {
                     }
                     
                     
-                    Text("Merchant provides information you submit through this site to a vendor for security purposes. Please see the Privacy Policy for more information.")
+                    Text("UPS provides information you submit through this site to a vendor for security purposes. Please see the Privacy Policy for more information.")
                         .font(.system(size: 14))
                         .foregroundStyle(Color(colorProvider.mediumText))
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -198,7 +198,7 @@ struct OneTimeUseView: View {
                 .hideSharedBackground()
                 
                 ToolbarItem(placement: .principal) {
-                    Text("One Time Use")
+                    Text("Guest Checkout")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color(colorProvider.darkText))
                 }

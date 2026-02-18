@@ -74,8 +74,8 @@ struct ComponentsView: View {
                                     paymentState.transactionInProgress = true
                                     Task {
                                         // Use the SDK's MobilePaymentsApplePayCoordinator to start the Apple Pay flow
-                                        await applePayCoordinator.makeSalesPayment(amount: parseAmount(),
-                                                                                   applePayMerchantId: applePayMerchantId)
+                                        await applePayCoordinator.performTransaction(amount: parseAmount(),
+                                                                                     applePayMerchantId: applePayMerchantId)
                                     }
                                 })
                                 .padding(.horizontal)
@@ -93,7 +93,7 @@ struct ComponentsView: View {
                                 self.paymentState.selectedPayment = creditCard
                             }
                             
-                            Text("Merchant provides information you submit through this site to a vendor for security purposes. Please see the Privacy Policy for more information.")
+                            Text("UPS provides information you submit through this site to a vendor for security purposes. Please see the Privacy Policy for more information.")
                                 .font(.system(size: 14))
                                 .foregroundStyle(Color(colorProvider.mediumText))
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -140,51 +140,6 @@ struct ComponentsView: View {
                         .progressViewStyle(.circular)
                         .scaleEffect(1.5)
                         .tint(.white)
-                }
-            }
-            .onTapGesture {
-                amountFocused = false
-            }
-            .onChange(of: amount) { _,_ in
-                paymentState.amount = parseAmount()
-            }
-            .onChange(of: applePayCoordinator.paymentResults) { _, result in
-                // Listen to the resulting Apple Pay sales transaction if user paid with Apple Pay
-                guard let result = result else { return }
-                paymentState.transactionInProgress = false
-                switch result {
-                case .success(let transaction):
-                    alertTitle = "Success!"
-                    alertMessage = "Apple Pay transaction successful. Transaction ID: \(transaction.transactionId).\nPaid \(transaction.amount) \(transaction.currencyCode?.uppercased() ?? "USD")"
-                    showAlert = true
-                case .failure(let error):
-                    alertTitle = "Error!"
-                    alertMessage = error.error.localizedDescription
-                    showAlert = true
-                default:
-                    break
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color(colorProvider.background), for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(Color(colorProvider.darkText))
-                            .imageScale(.large)
-                            .padding()
-                    }
-                }
-                .hideSharedBackground()
-                
-                ToolbarItem(placement: .principal) {
-                    Text("UI Components")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(Color(colorProvider.darkText))
                 }
             }
             .background(Color(colorProvider.background))

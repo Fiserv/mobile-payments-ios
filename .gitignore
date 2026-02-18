@@ -32,3 +32,4 @@ Pods/
 #
 fastlane/report.xml
 fastlane/screenshots
+/PaymentsSample.xcodeproj/project.xcworkspace

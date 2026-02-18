@@ -16,7 +16,7 @@ struct ContentView: View {
     
     @State var showSheets: Bool = false
     @State var showComponents: Bool = false
-    @State var showOneTimeUse: Bool = false
+    @State var showGuestCheckout: Bool = false
     
     @State var alertTitle: String = ""
     @State var alertMessage: String = ""
@@ -62,9 +62,9 @@ struct ContentView: View {
             
             Button(action: {
                 setCustomerId()
-                showOneTimeUse = true
+                showGuestCheckout = true
             }, label: {
-                Text("Single Card")
+                Text("Guest Checkout")
             })
             .buttonStyle(RoundedButtonStyle())
             .padding([.horizontal, .bottom])
@@ -163,9 +163,9 @@ struct ContentView: View {
             // Presents the component view. This is a view that uses UI components created by the SDK
             ComponentsView(colorProvider: $colorProvider)
         }
-        .fullScreenCover(isPresented: $showOneTimeUse) {
+        .fullScreenCover(isPresented: $showGuestCheckout) {
             // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
-            OneTimeUseView(colorProvider: $colorProvider)
+            GuestCheckoutView(colorProvider: $colorProvider)
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK", role: .cancel) { }

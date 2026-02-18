@@ -8135,13 +8135,6 @@
       },
       {
         "kind": "Import",
-        "name": "Security",
-        "printedName": "Security",
-        "declKind": "Import",
-        "moduleName": "FiservMobilePayments"
-      },
-      {
-        "kind": "Import",
         "name": "CryptoKit",
         "printedName": "CryptoKit",
         "declKind": "Import",
@@ -19482,28 +19475,28 @@
     {
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/API\/Security\/CAFSecurityManager.swift",
       "kind": "Array",
-      "offset": 364,
+      "offset": 348,
       "length": 55,
       "value": "[\"sha256\/rui3qfhbjvIzx2UX3cua9Z33WZR9+UdWrAbh6KxDqcI=\"]"
     },
     {
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/API\/Security\/CAFSecurityManager.swift",
       "kind": "Array",
-      "offset": 435,
+      "offset": 419,
       "length": 55,
       "value": "[\"sha256\/rui3qfhbjvIzx2UX3cua9Z33WZR9+UdWrAbh6KxDqcI=\"]"
     },
     {
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/API\/Security\/CAFSecurityManager.swift",
       "kind": "Array",
-      "offset": 507,
+      "offset": 491,
       "length": 55,
       "value": "[\"sha256\/OEkzoviMPOr3+0pKdXsn3tGmRR6PN0EcCfzy3rllUBA=\"]"
     },
     {
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/API\/Security\/CAFSecurityManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 613,
+      "offset": 597,
       "length": 5,
       "value": "false"
     },
@@ -20295,20 +20288,20 @@
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/SDKConfigurations.swift",
       "kind": "StringLiteral",
       "offset": 249,
-      "length": 45,
-      "value": "\"com.cardfree.fiserv.payments.configurations\""
+      "length": 36,
+      "value": "\"com.fiserv.payments.configurations\""
     },
     {
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/SDKConfigurations.swift",
       "kind": "StringLiteral",
-      "offset": 444,
+      "offset": 435,
       "length": 9,
       "value": "\"0:0:0:0\""
     },
     {
       "filePath": "\/Users\/allan\/Documents\/mobile-payments-ios-sdk\/MobilePayments\/SDKConfigurations.swift",
       "kind": "IntegerLiteral",
-      "offset": 883,
+      "offset": 874,
       "length": 1,
       "value": "6"
     },
