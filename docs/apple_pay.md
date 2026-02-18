@@ -2,7 +2,7 @@
 The SDK includes helper methods for Apple Pay transactions, from verifying availability to executing the transaction end-to-end. To use this feature, your Apple Pay configurations must be fully set up on our remote server.
 
 ### Table of Contents
-  * [Manual Implementation](#Manual Implementation)
+  * [Manual Implementation](#manual-implementation)
   * [Apple Pay Coordinator](#apple-pay-coordinator)
     
 ## Manual Implementation

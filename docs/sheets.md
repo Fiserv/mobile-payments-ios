@@ -1,5 +1,5 @@
 # Sheets
-Sheets integration is simply presenting the SwiftUI.View `MobilePaymentsPurchaseView` with methods like [fullScreenCover](https://developer.apple.com/documentation/swiftui/view/fullscreencover(ispresented:ondismiss:content:) for SwiftUI or by presenting `MobilePaymentsPurchaseViewController` in your ViewController for UIKit
+Sheets integration is simply presenting the SwiftUI.View `MobilePaymentsPurchaseView` with methods like [fullScreenCover](https://developer.apple.com/documentation/swiftui/view/fullscreencover%28ispresented:ondismiss:content:%29) for SwiftUI or by presenting `MobilePaymentsPurchaseViewController` in your ViewController for UIKit
 
 ## Launching the UI
 ### SwiftUI
