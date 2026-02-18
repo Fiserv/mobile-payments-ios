@@ -24,6 +24,11 @@ The Mobile Payments SDK is available through either [CocoaPods](https://www.coco
 - To integrate using `CocoaPods`, specify the following pod in your [Podfile](https://guides.cocoapods.org/syntax/podfile.html): `pod 'FiservMobilePayments'` 
 + To integrate using `Swift Package Manager`, follow [this guide](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app) and use `https://github.com/Cardfree/mobile-payments-ios` as the repository URL.
 
+## Running the Sample App
+A sample app is included in this repository to demonstrate SDK integration.
+
+Before running the project, open `Constants.swift` and replace the placeholder values with your own configuration values.
+
 # Initialization
 Initialization can be performed at any time, but must occur before using any SDK APIs.  Here, you will provide:
   1. the Environment (SANDBOX or PRODUCTION) you wish to run the SDK on
