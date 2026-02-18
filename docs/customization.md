@@ -120,7 +120,7 @@ MobilePayments.shared.setStyle(style)
 
 ### Example
 <div class="container" style="width:100%; display: flex; justify-content: space-evenly;" align="center">
-	<img src="/images/sheet_default_font.png1" alt="MobilePaymentsPurchaseActivity with the default font provider" style="width:25%; height:auto;">&nbsp;&nbsp;<img src="/images/sheet_custom_font.png" alt="MobilePaymentsPurchaseActivity with the sample font provider" style="width:25%; height:auto;">
+	<img src="/images/sheet_default_font.png" alt="MobilePaymentsPurchaseActivity with the default font provider" style="width:25%; height:auto;">&nbsp;&nbsp;<img src="/images/sheet_custom_font.png" alt="MobilePaymentsPurchaseActivity with the sample font provider" style="width:25%; height:auto;">
 </div>
 
 ## Shape
