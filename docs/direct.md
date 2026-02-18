@@ -7,7 +7,6 @@ The MobilePayments APIs are broken into several distinct categories, which you c
   * [Credit Cards](#credit-cards)
   * [Payments](#payments)
   * [General](#general)
-  * [Javadocs](#javadocs)
 
 ## Credit Cards
 Credit Cards are handled through the `CreditCardManager` object.  This is a singleton reference to contain all Credit Card interactions with the MobilePayments API.
