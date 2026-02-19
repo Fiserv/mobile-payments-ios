@@ -84,3 +84,4 @@ If even that’s not enough, and you really must have a unique UI, then you’re
 * [UI Components](/docs/ui_components.md)
 + [Direct](/docs/direct.md)
 * [Apple Pay](/docs/apple_pay.md)
+* [API References](https://cardfree.github.io/mobile-payments-ios/documentation/fiservmobilepayments/)
