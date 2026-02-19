@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		654937E7FFEB9FA63F62A42E /* Pods_PaymentsSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8535B014D727338044CE3585 /* Pods_PaymentsSample.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		23ED0AA69BD8F97926E82D56 /* Pods-PaymentsSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentsSample.debug.xcconfig"; path = "Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample.debug.xcconfig"; sourceTree = "<group>"; };
+		8535B014D727338044CE3585 /* Pods_PaymentsSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaymentsSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D656FCA2F45118E00E6C21F /* PaymentsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaymentsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE48C8A71AE7179F4ACEBE59 /* Pods-PaymentsSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentsSample.release.xcconfig"; path = "Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,17 +43,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				654937E7FFEB9FA63F62A42E /* Pods_PaymentsSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D31E548DBE25970A74BFD24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8535B014D727338044CE3585 /* Pods_PaymentsSample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9D656FC12F45118E00E6C21F = {
 			isa = PBXGroup;
 			children = (
 				9D656FCC2F45118E00E6C21F /* PaymentsSample */,
 				9D656FCB2F45118E00E6C21F /* Products */,
+				F6C793E03CE9E3DECE47451C /* Pods */,
+				1D31E548DBE25970A74BFD24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +76,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F6C793E03CE9E3DECE47451C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				23ED0AA69BD8F97926E82D56 /* Pods-PaymentsSample.debug.xcconfig */,
+				BE48C8A71AE7179F4ACEBE59 /* Pods-PaymentsSample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -65,9 +92,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D656FD52F45118F00E6C21F /* Build configuration list for PBXNativeTarget "PaymentsSample" */;
 			buildPhases = (
+				6007779F28545D2BA12A26F8 /* [CP] Check Pods Manifest.lock */,
 				9D656FC62F45118E00E6C21F /* Sources */,
 				9D656FC72F45118E00E6C21F /* Frameworks */,
 				9D656FC82F45118E00E6C21F /* Resources */,
+				69D9BEF9F8482BE014BB489A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -77,8 +106,6 @@
 				9D656FCC2F45118E00E6C21F /* PaymentsSample */,
 			);
 			name = PaymentsSample;
-			packageProductDependencies = (
-			);
 			productName = PaymentsSample;
 			productReference = 9D656FCA2F45118E00E6C21F /* PaymentsSample.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +153,52 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6007779F28545D2BA12A26F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PaymentsSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69D9BEF9F8482BE014BB489A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9D656FC62F45118E00E6C21F /* Sources */ = {
@@ -261,6 +334,7 @@
 		};
 		9D656FD62F45118F00E6C21F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23ED0AA69BD8F97926E82D56 /* Pods-PaymentsSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -269,6 +343,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GP9TA5USYP;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PaymentsSample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mobile Payments SDK";
@@ -297,6 +372,7 @@
 		};
 		9D656FD72F45118F00E6C21F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE48C8A71AE7179F4ACEBE59 /* Pods-PaymentsSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -305,6 +381,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GP9TA5USYP;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PaymentsSample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mobile Payments SDK";
