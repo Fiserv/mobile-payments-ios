@@ -33,7 +33,4 @@ Pods/
 fastlane/report.xml
 fastlane/screenshots
 /PaymentsSample.xcodeproj/project.xcworkspace
-PaymentsSample/PaymentsSample.entitlements
 *.entitlements
-PaymentsSample/Package.swift
-Package.swift
