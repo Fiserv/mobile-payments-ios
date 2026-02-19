@@ -34,3 +34,7 @@ fastlane/report.xml
 fastlane/screenshots
 /PaymentsSample.xcodeproj/project.xcworkspace
 *.entitlements
+/SampleApp/PaymentsSample.xcodeproj/project.xcworkspace
+/SampleApp/PaymentsSample.xcworkspace
+/PaymentsSample.xcworkspace
+/PaymentsSample.xcodeproj/project.xcworkspace
