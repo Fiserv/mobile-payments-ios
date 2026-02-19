@@ -36,3 +36,4 @@ fastlane/screenshots
 PaymentsSample/PaymentsSample.entitlements
 *.entitlements
 PaymentsSample/Package.swift
+Package.swift
