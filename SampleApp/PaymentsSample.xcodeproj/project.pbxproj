@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		654937E7FFEB9FA63F62A42E /* Pods_PaymentsSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8535B014D727338044CE3585 /* Pods_PaymentsSample.framework */; };
-		9D8118B82F479AC20040FB59 /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8118B72F479AC20040FB59 /* Configurations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		23ED0AA69BD8F97926E82D56 /* Pods-PaymentsSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentsSample.debug.xcconfig"; path = "Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample.debug.xcconfig"; sourceTree = "<group>"; };
 		8535B014D727338044CE3585 /* Pods_PaymentsSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaymentsSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D656FCA2F45118E00E6C21F /* PaymentsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaymentsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D8118B72F479AC20040FB59 /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 		BE48C8A71AE7179F4ACEBE59 /* Pods-PaymentsSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentsSample.release.xcconfig"; path = "Target Support Files/Pods-PaymentsSample/Pods-PaymentsSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +61,6 @@
 		9D656FC12F45118E00E6C21F = {
 			isa = PBXGroup;
 			children = (
-				9D8118B72F479AC20040FB59 /* Configurations.swift */,
 				9D656FCC2F45118E00E6C21F /* PaymentsSample */,
 				9D656FCB2F45118E00E6C21F /* Products */,
 				F6C793E03CE9E3DECE47451C /* Pods */,
@@ -208,7 +205,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8118B82F479AC20040FB59 /* Configurations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
