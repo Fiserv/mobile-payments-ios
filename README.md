@@ -22,7 +22,7 @@ In addition, you must set up a merchant account and associated payment configura
 The Mobile Payments SDK is available through either [CocoaPods](https://www.cocoapods.org/) or [Swift Package Manager](swift.org/package-manager/) 
 
 - To integrate using `CocoaPods`, specify the following pod in your [Podfile](https://guides.cocoapods.org/syntax/podfile.html): `pod 'FiservMobilePayments'` 
-+ To integrate using `Swift Package Manager`, follow [this guide](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app) and use `https://github.com/Cardfree/mobile-payments-ios` as the repository URL.
++ To integrate using `Swift Package Manager`, follow [this guide](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app) and use `https://github.com/fiserv/mobile-payments-ios` as the repository URL.
 
 ## Running the Sample App
 A sample app is included in this repository to demonstrate SDK integration.
