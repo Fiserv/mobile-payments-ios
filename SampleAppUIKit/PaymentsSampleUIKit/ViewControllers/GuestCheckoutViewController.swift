@@ -17,8 +17,9 @@ class GuestCheckoutViewController: UIViewController {
     // Views
     private lazy var amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Amount"
-        textField.borderStyle = .roundedRect
+        textField.attributedPlaceholder = NSAttributedString(string: "Amount",
+                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        textField.borderStyle = .none
         textField.textColor = colorProvider.darkText
         textField.backgroundColor = colorProvider.background
         return textField

@@ -15,7 +15,8 @@ class RootViewController: UIViewController {
     
     private lazy var customerIdTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Customer ID"
+        textField.attributedPlaceholder = NSAttributedString(string: "Customer ID",
+                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .white
         textField.textColor = .black
