@@ -24,6 +24,13 @@ The Mobile Payments SDK is available through either [CocoaPods](https://www.coco
 - To integrate using `CocoaPods`, specify the following pod in your [Podfile](https://guides.cocoapods.org/syntax/podfile.html): `pod 'FiservMobilePayments'` 
 + To integrate using `Swift Package Manager`, follow [this guide](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app) and use `https://github.com/fiserv/mobile-payments-ios` as the repository URL.
 
+**Note:** If you integrate with `Cocoapods`, you may run into rsync errors when building because of its build scripts. To ensure those scripts are execute correctly, you must disable `User Script Sandboxing`. You can do this by following these steps:
+1. In Xcode, select the project file at the very top of the Project Navigator on the left.
+2. Select your `target` under `Targets`
+3. Go to the `Build Settings` tab
+4. Search for `User Script Sandboxing`
+5. Set it to `No`
+
 ## Running the Sample App
 A sample app is included in this repository to demonstrate SDK integration.
 

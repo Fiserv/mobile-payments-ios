@@ -1,0 +1,13 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '17.0'
+use_frameworks!
+
+def base_pods
+  pod 'FiservMobilePayments'
+  pod 'SnapKit'
+end
+
+target 'PaymentsSampleUIKit' do
+  project 'PaymentsSampleUIKit.xcodeproj'
+  base_pods
+end

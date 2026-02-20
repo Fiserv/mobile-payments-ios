@@ -1,0 +1,20 @@
+PODS:
+  - FiservMobilePayments (1.0.1)
+  - SnapKit (5.7.1)
+
+DEPENDENCIES:
+  - FiservMobilePayments
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - FiservMobilePayments
+    - SnapKit
+
+SPEC CHECKSUMS:
+  FiservMobilePayments: 62080dfe7254416b35b2510aa25fe090aacda3e5
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+
+PODFILE CHECKSUM: 5bedb45c6ce5dee80752904cb9a4b3a01f364161
+
+COCOAPODS: 1.16.2

@@ -74,6 +74,9 @@ class YourViewController: UIViewController {
                                                   delegate: self)
         creditCardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(creditCardView)
+        // Important!
+        creditCardView.add(to: self)
+        // Add your layout constraints
     }
     
     func setupBindings() {
@@ -228,6 +231,9 @@ class YourViewController: UIViewController {
                                                      delegate: self)
         creditCardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(creditCardView)
+        // Important!
+        creditCardView.add(to: self)                                       
+        // Add your layout constraints
     }
 }
 ```
@@ -303,15 +309,18 @@ class YourViewController: UIViewController {
         super.viewDidLoad()
         
         // Add the credit card view
-        let creditCardView = UIPurchaseButton(state: state,
+        let purchaseButton = UIPurchaseButton(state: state,
                                               transactionType: transactionType,
                                               customerId: customerId,
                                               billingAddress: billingAddress,
                                               clientTransactionId: clientTransactionId,
                                               merchantReference: merchantReference,
                                               delegate: self)
-        creditCardView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(creditCardView)
+        purchaseButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(purchaseButton)
+        // Important!
+        purchaseButton.add(to: self)
+        // Add your layout constraints
     }
 }
 
