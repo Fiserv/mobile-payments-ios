@@ -83,7 +83,7 @@ The simplest and easiest of the available options is Sheets. This is as quick an
 
 If you require more flexibility, but don’t want to deal with customer information directly, or just want a personalized touch to the user experience, then using the MobilePayments UI Components is the way to go.
 
-If even that’s not enough, and you really must have a unique UI, then you’re looking to interface with MobilePayments Directly.  This will take the most work, and you will have to collect user information to pass to MobilePayments, but you will be able to make your app look and behave exactly the way you want to.
+If even that’s not enough, and you really must have a unique UI, then you’re looking to interface with MobilePayments directly.  This will take the most work, and you will have to collect user information to pass to MobilePayments, but you will be able to make your app look and behave exactly the way you want to.
 
 # Error Debugging & Support
 Errors produced by the SDK expose additional diagnostic metadata that can be access directly from Swift `Error` and `NSError` instance via framework provided extensions. These properties are only populated for errors originating from the SDK.
