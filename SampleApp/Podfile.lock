@@ -1,5 +1,5 @@
 PODS:
-  - FiservMobilePayments (1.0.2)
+  - FiservMobilePayments (1.0.3)
 
 DEPENDENCIES:
   - FiservMobilePayments
@@ -9,7 +9,7 @@ SPEC REPOS:
     - FiservMobilePayments
 
 SPEC CHECKSUMS:
-  FiservMobilePayments: d5c9669cc2e007f7ef421e687b54f4e812f45aa5
+  FiservMobilePayments: 7d7615cc19c28ad8e6ccfae1b3db256e94c97fd1
 
 PODFILE CHECKSUM: 80817747b9e44aa3b01af4f68cb8977d8b304de0
 
