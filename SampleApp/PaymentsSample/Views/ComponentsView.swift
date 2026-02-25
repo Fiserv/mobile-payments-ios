@@ -47,7 +47,9 @@ struct ComponentsView: View {
                             // Enabled requireCvv to forcefully collect CVV. Can be set to false if desired
                             CreditCardListView(state: paymentState,
                                                scrollingEnabled: false,
-                                               requireCvv: true) { creditCard in
+                                               requireCvv: true,
+                                               addressMode: .fullAddress,
+                                               cardNumberMaskMode: .lastFourVisible) { creditCard in
                                 self.paymentState.selectedPayment = creditCard
                             }
                             .padding(.top)
@@ -125,11 +127,11 @@ struct ComponentsView: View {
                             if isApplePayAvailable {
                                 PayWithApplePayButton(.buy, action: {
                                     // User tapped on apple pay button
-                                    paymentState.transactionInProgress = true
                                     Task {
                                         // Use the SDK's MobilePaymentsApplePayCoordinator to start the Apple Pay flow
                                         await applePayCoordinator.performTransaction(amount: total,
-                                                                                     applePayMerchantId: applePayMerchantId)
+                                                                                     applePayMerchantId: applePayMerchantId,
+                                                                                     state: paymentState)
                                     }
                                 })
                                 .padding(.horizontal)
@@ -162,7 +164,11 @@ struct ComponentsView: View {
                                    transactionType: .sale) { result in
                         if let error = result.error {
                             alertTitle = "Error!"
-                            alertMessage = error.localizedDescription
+                            var message = error.localizedDescription
+                            if let corrId = error.correlationId {
+                                message = "\(message) (\(corrId))"
+                            }
+                            alertMessage = message
                             showAlert = true
                         } else if let transaction = result.transaction {
                             alertTitle = "Success!"
@@ -191,7 +197,6 @@ struct ComponentsView: View {
             .onChange(of: applePayCoordinator.paymentResults) { _, result in
                 // Listen to the resulting Apple Pay sales transaction if user paid with Apple Pay
                 guard let result = result else { return }
-                paymentState.transactionInProgress = false
                 switch result {
                 case .success(let transaction):
                     alertTitle = "Success!"
@@ -199,7 +204,11 @@ struct ComponentsView: View {
                     showAlert = true
                 case .failure(let error):
                     alertTitle = "Error!"
-                    alertMessage = error.error.localizedDescription
+                    var message = error.error.localizedDescription
+                    if let corrId = error.error.correlationId {
+                        message = "\(message) (\(corrId))"
+                    }
+                    alertMessage = message
                     showAlert = true
                 default:
                     break
@@ -234,7 +243,11 @@ struct ComponentsView: View {
                 isApplePayAvailable = try await PaymentManager.shared.canPayWithApplePay()
             } catch {
                 alertTitle = "Apple Pay Error"
-                alertMessage = error.localizedDescription
+                var message = error.localizedDescription
+                if let corrId = (error as NSError).userInfo["correlationId"] as? String, !corrId.isEmpty {
+                    message = "\(message) (\(corrId))"
+                }
+                alertMessage = message
                 showAlert = true
             }
             paymentState.amount = total

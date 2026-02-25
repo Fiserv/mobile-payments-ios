@@ -17,6 +17,7 @@ struct ContentView: View {
     @State var showSheets: Bool = false
     @State var showComponents: Bool = false
     @State var showGuestCheckout: Bool = false
+    @State var showDirect: Bool = false
     
     @State var alertTitle: String = ""
     @State var alertMessage: String = ""
@@ -68,14 +69,23 @@ struct ContentView: View {
             })
             .buttonStyle(RoundedButtonStyle())
             .padding([.horizontal, .bottom])
+            
+            Button(action: {
+                setCustomerId()
+                showDirect = true
+            }, label: {
+                Text("Direct API")
+            })
+            .buttonStyle(RoundedButtonStyle())
+            .padding([.horizontal, .bottom])
 
             Text("Styles")
                 .font(.system(size: 24, weight: .medium))
                 .foregroundStyle(.black)
                 .padding()
             
-            HStack {
-                // Customize the SDK to a custom look
+            HStack(spacing: 4) {
+                // Customize the SDK to a yellow blocky look
                 Button(action: {
                     let font = CustomFontProvider()
                     let color = CustomColorProvider()
@@ -84,31 +94,32 @@ struct ContentView: View {
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
                     setCustomerId()
-                    alertTitle = "Style #1 (Yellow Block) Applied"
+                    alertTitle = "Style #1 (Blocky Yellow) Applied"
                     alertMessage = ""
                     showAlert = true
                 }, label: {
                     Text("Style #1")
+                        .padding(.horizontal, 4)
+                        .multilineTextAlignment(.center)
                 })
                 .buttonStyle(RoundedButtonStyle())
                 
                 // Customize the SDK to a dark mode look
                 Button(action: {
                     let color = DarkColorProvider()
-                    let fonts = DarkFontProvider()
-                    let style = MobilePaymentsStyleProvider(colors: color, fonts: fonts)
+                    let style = MobilePaymentsStyleProvider(colors: color)
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
                     setCustomerId()
-                    alertTitle = "Style #2 (Dark Rounded) Applied"
+                    alertTitle = "Style #2 (Dark) Applied"
                     alertMessage = ""
                     showAlert = true
                 }, label: {
                     Text("Style #2")
+                        .padding(.horizontal, 4)
+                        .multilineTextAlignment(.center)
                 })
                 .buttonStyle(RoundedButtonStyle())
-                .padding(.leading)
-
                 
                 // Customize the SDK back to the default styling
                 Button(action: {
@@ -116,16 +127,17 @@ struct ContentView: View {
                     let style = MobilePaymentsStyleProvider()
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
-                    alertTitle = "Style #3 (Default) Applied"
+                    alertTitle = "Default Style Applied"
                     alertMessage = ""
                     showAlert = true
                 }, label: {
-                    Text("Style #3")
+                    Text("Default")
+                        .padding(.horizontal, 4)
+                        .multilineTextAlignment(.center)
                 })
                 .buttonStyle(RoundedButtonStyle())
-                .padding(.leading)
             }
-            .padding([.horizontal, .bottom])
+            .padding(.horizontal)
             
             Spacer()
         }
@@ -138,13 +150,6 @@ struct ContentView: View {
             customerId = getUserIDFromCache() ?? ""
             if !customerId.isEmpty {
                 MobilePayments.shared.setCustomerId(customerId)
-            }
-            
-            for familyName in UIFont.familyNames {
-                print("\n-- \(familyName) \n")
-                for fontName in UIFont.fontNames(forFamilyName: familyName) {
-                    print(fontName)
-                }
             }
         }
         .fullScreenCover(isPresented: $showSheets) {
@@ -166,6 +171,10 @@ struct ContentView: View {
         .fullScreenCover(isPresented: $showGuestCheckout) {
             // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
             GuestCheckoutView(colorProvider: $colorProvider)
+        }
+        .fullScreenCover(isPresented: $showDirect) {
+            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
+            DirectView(colorProvider: $colorProvider)
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK", role: .cancel) { }

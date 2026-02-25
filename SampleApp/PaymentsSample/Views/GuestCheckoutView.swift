@@ -97,11 +97,11 @@ struct GuestCheckoutView: View {
                     if isApplePayAvailable {
                         PayWithApplePayButton(.order, action: {
                             // User tapped on apple pay button
-                            paymentState.transactionInProgress = true
                             Task {
                                 // Use the SDK's MobilePaymentsApplePayCoordinator to start the Apple Pay flow
                                 await applePayCoordinator.performTransaction(amount: total,
-                                                                             applePayMerchantId: applePayMerchantId)
+                                                                             applePayMerchantId: applePayMerchantId,
+                                                                             state: paymentState)
                             }
                         })
                         .padding(.horizontal)
@@ -133,7 +133,11 @@ struct GuestCheckoutView: View {
                                    autoSubmitAfterAddingCard: true) { result in
                         if let error = result.error {
                             alertTitle = "Error!"
-                            alertMessage = error.localizedDescription
+                            var message = error.localizedDescription
+                            if let corrId = error.correlationId {
+                                message = "\(message) (\(corrId))"
+                            }
+                            alertMessage = message
                             showAlert = true
                         } else if let transaction = result.transaction {
                             alertTitle = "Success!"
@@ -167,7 +171,6 @@ struct GuestCheckoutView: View {
             }
             .onChange(of: applePayCoordinator.paymentResults) { _, result in
                 guard let result = result else { return }
-                paymentState.transactionInProgress = false
                 switch result {
                 case .success(let transaction):
                     alertTitle = "Success!"
@@ -175,7 +178,11 @@ struct GuestCheckoutView: View {
                     showAlert = true
                 case .failure(let error):
                     alertTitle = "Error!"
-                    alertMessage = error.error.localizedDescription
+                    var message = error.error.localizedDescription
+                    if let corrId = error.error.correlationId {
+                        message = "\(message) (\(corrId))"
+                    }
+                    alertMessage = message
                     showAlert = true
                 default:
                     break
