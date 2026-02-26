@@ -130,7 +130,7 @@ extension YourViewController: CreditCardListDelegate {
 Credit Card Details is handled through two UI components.  The `CreditCardDetailsModal`, for a modal, modular display that can easily slot anywhere its needed, and the `CreditCardDetailsView` for embedding the UI directly into the host UI.
 
 #### Modal
-`CreditCardDetailsModal` is a self-contained modal UI widget designed to be a quick and easy way to slot `CreditCardDetailsView` into nearly any UI design.  It is a bottom sheet that slides up from the bottom and will need to be presented as a full screen cover.
+`CreditCardDetailsModal` is a self-contained modal UI widget designed to be a quick and easy way to slot `CreditCardDetailsView` into nearly any UI design.  It is a bottom sheet that slides up from the bottom and will need to be presented as a sheet.
 
 #### SwiftUI
 ```
@@ -148,7 +148,7 @@ struct YourSwiftUIView: View {
             Text("Show Add Credit Card Modal!")
         }
     }
-    .fullScreenCover($showAddCreditCard) {
+    .sheet($showAddCreditCard) {
             CreditCardDetailsModal(customerId: customerId,
                                    canSaveCard: canSaveCard,
                                    amount: amount,
