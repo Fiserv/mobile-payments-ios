@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobilePayments.shared.initialize(environment: .sandbox,
                                          clientToken: token,
                                          businessLocationId: locationId)
+        
+        // Using device ID to represent customer as an example for this sample app
+        if let customerId = UIDevice.current.identifierForVendor?.uuidString {
+            MobilePayments.shared.setCustomerId(customerId)
+        }
         return true
     }
 

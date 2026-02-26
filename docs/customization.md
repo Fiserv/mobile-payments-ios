@@ -214,7 +214,6 @@ The Mobile Payments iOS SDK utilizes the standard `Localizable.strings`, drawing
 
 "mp_addressDetailsLine1" = "Line 1";
 "mp_addressDetailsLine2" = "Line 2";
-"mp_addressDetailsLine3" = "Line 3";
 "mp_addressDetailsCity" = "City";
 "mp_addressDetailsState" = "State";
 "mp_addressDetailsPostalCode" = "Postal Code";

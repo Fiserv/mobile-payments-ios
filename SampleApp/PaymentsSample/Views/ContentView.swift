@@ -12,12 +12,9 @@ import PassKit
 // Landing view to showcase customizing the colors, fonts, and shapes for the SDK
 // Presents an entry point to examples of how to use the SDK
 struct ContentView: View {
-    @State var customerId: String = ""
-    
     @State var showSheets: Bool = false
     @State var showComponents: Bool = false
     @State var showGuestCheckout: Bool = false
-    @State var showDirect: Bool = false
     
     @State var alertTitle: String = ""
     @State var alertMessage: String = ""
@@ -32,19 +29,7 @@ struct ContentView: View {
                 .foregroundStyle(.black)
                 .padding()
             
-            TextField("Customer ID", text: $customerId, prompt: Text("Customer ID").foregroundStyle(.black))
-                .keyboardType(.asciiCapable)
-                .foregroundStyle(.black)
-                .frame(maxWidth: .infinity, minHeight: 50)
-                .padding(.horizontal)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.gray, lineWidth: 1)
-                }
-                .padding()
-            
             Button(action: {
-                setCustomerId()
                 showSheets = true
             }, label: {
                 Text("Sheets")
@@ -53,7 +38,6 @@ struct ContentView: View {
             .padding([.horizontal, .bottom])
             
             Button(action: {
-                setCustomerId()
                 showComponents = true
             }, label: {
                 Text("UI Components")
@@ -62,19 +46,9 @@ struct ContentView: View {
             .padding([.horizontal, .bottom])
             
             Button(action: {
-                setCustomerId()
                 showGuestCheckout = true
             }, label: {
                 Text("Guest Checkout")
-            })
-            .buttonStyle(RoundedButtonStyle())
-            .padding([.horizontal, .bottom])
-            
-            Button(action: {
-                setCustomerId()
-                showDirect = true
-            }, label: {
-                Text("Direct API")
             })
             .buttonStyle(RoundedButtonStyle())
             .padding([.horizontal, .bottom])
@@ -93,7 +67,6 @@ struct ContentView: View {
                     let style = MobilePaymentsStyleProvider(colors: color, fonts: font, shapes: shape)
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
-                    setCustomerId()
                     alertTitle = "Style #1 (Blocky Yellow) Applied"
                     alertMessage = ""
                     showAlert = true
@@ -110,7 +83,6 @@ struct ContentView: View {
                     let style = MobilePaymentsStyleProvider(colors: color)
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
-                    setCustomerId()
                     alertTitle = "Style #2 (Dark) Applied"
                     alertMessage = ""
                     showAlert = true
@@ -123,7 +95,6 @@ struct ContentView: View {
                 
                 // Customize the SDK back to the default styling
                 Button(action: {
-                    setCustomerId()
                     let style = MobilePaymentsStyleProvider()
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
@@ -147,8 +118,9 @@ struct ContentView: View {
             MobilePayments.shared.initialize(environment: .sandbox,
                                              clientToken: token,
                                              businessLocationId: locationId)
-            customerId = getUserIDFromCache() ?? ""
-            if !customerId.isEmpty {
+            
+            // Using device ID to represent customer as an example for this sample app
+            if let customerId = UIDevice.current.identifierForVendor?.uuidString {
                 MobilePayments.shared.setCustomerId(customerId)
             }
         }
@@ -158,7 +130,6 @@ struct ContentView: View {
             // Present the MobilePaymentsPurchaseView
             // This is a self-contained payment view that fully handle the entire payment flow
             MobilePaymentsPurchaseView(amount: amount,
-                                       customerId: customerId,
                                        applePayMerchantId: applePayMerchantId,
                                        applePayButtonLabel: .checkout,
                                        applePayButtonStyle: colorProvider.background == DarkColorProvider().background ? .white : .black,
@@ -172,29 +143,10 @@ struct ContentView: View {
             // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
             GuestCheckoutView(colorProvider: $colorProvider)
         }
-        .fullScreenCover(isPresented: $showDirect) {
-            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
-            DirectView(colorProvider: $colorProvider)
-        }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK", role: .cancel) { }
         } message: {
             Text(alertMessage)
-        }
-    }
-    
-    private func setCustomerId() {
-        let customerId = customerId.isEmpty ? nil : customerId
-        MobilePayments.shared.setCustomerId(customerId)
-        UserDefaults.standard.set(customerId, forKey: "customerId")
-    }
-    
-    private func getUserIDFromCache() -> String? {
-        let customerId = UserDefaults.standard.string(forKey: "customerId")
-        if customerId?.isEmpty == true {
-            return nil
-        } else {
-            return customerId
         }
     }
 }
