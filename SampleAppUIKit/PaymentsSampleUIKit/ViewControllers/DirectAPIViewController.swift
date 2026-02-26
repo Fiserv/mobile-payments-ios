@@ -293,7 +293,7 @@ class DirectAPIViewController: UIViewController {
             }
         } else {
             voidButton.isEnabled = false
-            authButton.isEnabled = false
+            captureButton.isEnabled = false
         }
     }
     
