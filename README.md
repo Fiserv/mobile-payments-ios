@@ -90,8 +90,9 @@ Errors produced by the SDK expose additional diagnostic metadata that can be acc
 
 | Property | Type | Description |
 | :--- | :--- | :--- |
-| **`isSystemError`** | `Bool` | Indicates the error's origin. <br> • **`true`**: A framework or system-level failure (e.g., local validation, network drops, timeouts). <br> • **`false`**: A remote API error returned by the server. |
-| **`correlationId`** | `String?` | A unique server trace ID. **Only populated when `isSystemError` is `false`.** Please include this ID when opening support tickets. |
+| **`isOperationalError`** | `Bool` | Indicates the error's origin. <br> • **`true`**: A framework or system-level failure (e.g., local validation, security, or permission error). <br> • **`false`**: A network error or remote API error returned by the server. |
+| **`isNetworkError`** | `Bool` | Indicates the error's origin. <br> • **`true`**: A network-level failure (e.g. connection, network drops, timeouts). <br> • **`false`**: A operational error or remote API error returned by the server. |
+| **`correlationId`** | `String?` | A unique server trace ID. **Only populated when `isOperationalError` and `isNetworkError` is `false`.** Please include this ID when opening support tickets. |
 
 **Quick Links**
 

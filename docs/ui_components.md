@@ -6,23 +6,25 @@ These UI components are exposed directly through the SDK instance. Each componen
 Although these are designed as a native SwiftUI view, the SDK also includes a fully compatible wrapper for UIKit codebases.
 
 ### Table of Contents
-  * [Payment State](#payment-state)
+  * [Payment Session](#payment-session)
   * [Credit Cards](#credit-cards)
   * [Purchase](#purchase)
   
-## Payment State
-State is an ObservableObject responsible for coordinating all UI components provided by the SDK. Each property is annotated with @Published, enabling observers to subscribe and respond to changes. If multiple SDK UI components are used, they must all share the same PaymentState instance or listen for changes from that shared instance.
+## Payment Session
+PaymentSession is an ObservableObject responsible for coordinating all UI components provided by the SDK. Each property is annotated with @Published, enabling observers to subscribe and respond to changes. If multiple SDK UI components are used, they must all share the same PaymentSession instance or listen for changes from that shared instance.
 #### Parameters
   * Amount
     * The amount to charge the customer
   * Credit Card
     * The list of saved objects. You may provide a custom list to manage the data yourself.
-  * Selected Payment
-    * The currently selected payment. You may pass a value to preselect a payment. Otherwise, the default card, if available, will be selected. Otherwise, the first payment in the list will be selected.
-  * Selected Payment Valid
-    * Bool to indicate whether the current selected payment is valid. This is mainly used in conjuction with requireCvv where if requireCvv is true, this flag will indicate whether or not the cvv has been entered
+  * Payment
+    * The payment to transact with or the currently selected payment. 
+      * When used with the SDK's `PurchaseButton` component: It represents the payment that will be used to transact with. 
+      * When used with the SDK's `CreditCardListView` component: It represents the selected payment method. You may pass a value to preselect a payment. Otherwise, the default card, if available, will be selected. Otherwise, the first payment in the list will be selected.
+  * Can Submit Payment
+    * Bool to indicate whether the payment is ready to transact with. Mainly used in the scenario where cvv is required for the payment.
   * Transaction In Progress
-    * Bool to indicate whether there is currently a transaction in progress. This can be used to update your UI to disable buttons or show spinners when this is true
+    * Bool to indicate whether there is currently a transaction in progress. This can be used to update your UI such as disabling buttons or showing loading spinners.
 
 ## Credit Cards
 Credit Cards in MobilePayments have two major UI elements, a Credit Card List primarily used for saving and managing Credit Cards associated with a provided Customer ID value, and a Credit Card Details UI used to collect the user’s Credit Card information and tokenize the data for usage elsewhere.
@@ -35,13 +37,12 @@ The Credit Card List is provided through the `CreditCardListView` View for Swift
 import FiservMobilePayments
 
 struct YourView: View {
-    @ObservedObject private var state = PaymentState()
+    @ObservedObject private var session = PaymentSession()
     
     var body: some View {
         ZStack {
-           CreditCardListView(state: state,
-                              customerId: customerId,
-                              requireCvv: requireCvv) { card in
+           CreditCardListView(session: session,
+                              requireCvv: false) { card in
                     // User has selected a card
                     // Update your UI
                     self.updateUI()
@@ -57,20 +58,19 @@ struct YourView: View {
 import FiservMobilePayments
 
 class YourViewController: UIViewController {
-    private var state = PaymentState()
+    private var session = PaymentSession()
     
     private var cancellables = Set<AnyCancellable>()
         
     override func viewDidLoad {
         super.viewDidLoad()
         
-        // If you want to listen to updates via PaymentState
+        // If you want to listen to updates via PaymentSession
         setupBindings()
         
         // Add the credit card view
-        let creditCardView = UICreditCardListView(state: state,
-                                                  customerId: customerId,
-                                                  requireCvv: requireCvv, 
+        let creditCardView = UICreditCardListView(session: session,
+                                                  requireCvv: false, 
                                                   delegate: self)
         creditCardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(creditCardView)
@@ -81,7 +81,7 @@ class YourViewController: UIViewController {
     
     func setupBindings() {
         // Optional binding to listen to updates
-        state.$selectedPayment
+        session.$payment
             .receive(on: DispatchQueue.main)
             .sink { [weak self] newCard in
                // update UI based on selected card
@@ -92,7 +92,7 @@ class YourViewController: UIViewController {
 }
 
 // Optional delegate to implement if you want to subscribe for updates
-// Can also subscribe to paymentState
+// Can also subscribe to PaymentSession
 extension YourViewController: CreditCardListDelegate {
      func onCreditCardSelected(card: CreditCard) {
         // User has selected a card
@@ -103,7 +103,7 @@ extension YourViewController: CreditCardListDelegate {
 ```
 
 #### Parameters
-  * Payment State
+  * Payment Session
     * An observable object that you can subscribe to for updates such as credit card selected or getting the list of credit cards
   * **(OPTIONAL)** Customer ID
     * You can provide a specific Customer ID here. If omitted, the SDK defaults to the ID provided during `MobilePayments.shared.setCustomerId()` call.
@@ -116,7 +116,7 @@ extension YourViewController: CreditCardListDelegate {
   * **(OPTIONAL)** Can Add Cards
     * Flag to allow adding a `CreditCard` through the `CreditCardListView`.  Defaults to true
   * **(OPTIONAL)** Billing Address
-    * `Address` to use as the billing address for this transaction.
+    * `Address` to use as the billing address for this transaction. Set `cardNumberMaskMode` to `none` if manually supplied.
   * **(OPTIONAL)** Address Mode
     * Mode for entering Credit Card billing address.  Options are `postalCode`, `fullAddress`, and `none`
   * **(OPTIONAL)** Card Number Mask Mode
@@ -142,17 +142,17 @@ struct YourSwiftUIView: View {
     var body: some View {
         Button {
             // When this button is pressed, showAddCreditCard will be set to true
-            // to present fullScreenCover of CreditCardDetailsModal
+            // to present sheet of CreditCardDetailsModal
                 showAddCreditCard = true
         }, label: {
             Text("Show Add Credit Card Modal!")
         }
     }
     .sheet($showAddCreditCard) {
-            CreditCardDetailsModal(customerId: customerId,
-                                   canSaveCard: canSaveCard,
-                                   amount: amount,
-                                   billingAddress: billingAddress) { addedCard in
+            CreditCardDetailsModal(canSaveCard: true,
+                                   billingAddress: billingAddress,
+                                   addressMode: .postalCode, // Set this to .none if billing address is supplied
+                                   cardNumberMaskMode: .lastFourVisible) { addedCard in
                                        // Card was added
                                        // Update UI
                                        updateUI(card: addedCard)
@@ -164,9 +164,10 @@ struct YourSwiftUIView: View {
 #### UIKit
 ```
 let viewController = CreditCardDetailsViewController(customerId: customerId,
-                                                     canSaveCard: canSaveCard,
-                                                     amount: amount,
-                                                     billingAddress: billingAddress, 
+                                                     canSaveCard: true,
+                                                     billingAddress: billingAddress,
+                                                     addressMode: .postalCode, // Set this to .none if billing address is supplied
+                                                     cardNumberMaskMode: .lastFourVisible, 
                                                      delegate: self)
 present(viewController, animated: true)
 ```
@@ -189,7 +190,7 @@ extension YourViewController: CreditCardDetailsDelegate {
   * **(OPTIONAL)** Amount
     * Amount to show on the button label in the event where `autoSubmitAfterAddingCard` is true
   * **(OPTIONAL)** Billing Address
-    * `BillingAddress` to use as the billing address for this payment.
+    * `BillingAddress` to use as the billing address for this payment. Set `cardNumberMaskMode` to `none` if manually supplied.
   * **(OPTIONAL)** Address Mode
     * Mode for entering Credit Card billing address.  Options are `postalCode`, `fullAddress`, and `none`
   * **(OPTIONAL)** Card Number Mask Mode
@@ -266,7 +267,7 @@ extension YourViewController: CreditCardDetailsDelegate {
   * **(OPTIONAL)** Amount
     * Amount to show on the button label in the event where `autoSubmitAfterAddingCard` is true
   * **(OPTIONAL)** Billing Address
-    * `BillingAddress` to use as the billing address for this payment.
+    * `BillingAddress` to use as the billing address for this payment. Set `cardNumberMaskMode` to `none` if manually supplied.
   * **(OPTIONAL)** Address Mode
     * Mode for entering Credit Card billing address.  Options are `postalCode`, `fullAddress`, and `none`
   * **(OPTIONAL)** Card Number Mask Mode
@@ -288,13 +289,12 @@ To integrate the `PurchaseButton`, add it to your SwiftUI view hierarchy or atta
 import FiservMobilePayments
           
 struct YourView: View {
-    @ObservedObject private var state = PaymentState()
+    @ObservedObject private var session = PaymentSession()
     
     var body: some View {
         ZStack {
-                PurchaseButton(state: state,
+                PurchaseButton(session: session,
                                transactionType: transactionType,
-                               customerId: customerId,
                                billingAddress: billingAddress,
                                clientTransactionId: clientTransactionId,
                                merchantReference: merchantReference) { result in
@@ -317,15 +317,14 @@ struct YourView: View {
 import FiservMobilePayments
 
 class YourViewController: UIViewController {
-    private var state = PaymentState()
+    private var session = PaymentSession()
             
     override func viewDidLoad {
         super.viewDidLoad()
         
         // Add the credit card view
-        let purchaseButton = UIPurchaseButton(state: state,
+        let purchaseButton = UIPurchaseButton(session: session,
                                               transactionType: transactionType,
-                                              customerId: customerId,
                                               billingAddress: billingAddress,
                                               clientTransactionId: clientTransactionId,
                                               merchantReference: merchantReference,
@@ -352,7 +351,7 @@ extension YourViewController: PurchaseButtonDelegate {
 ```
 
 #### Parameters
-  * Payment State
+  * Payment Session
     * An observable object that you can subscribe to for updates such as credit card selected or getting the list of credit cards
   * **(OPTIONAL)** Show Total
     * Flag to control whether to show the total to the left of the button
@@ -365,7 +364,7 @@ extension YourViewController: PurchaseButtonDelegate {
   * **(OPTIONAL)** Purchase Button Operation Mode
     * Flag to control the operation mode of the `PurchaseButton`.  Defaults to `standard`
   * **(OPTIONAL)** Billing Address
-    * `BillingAddress` to use as the billing address for this payment.
+    * `BillingAddress` to use as the billing address for this payment. Set `cardNumberMaskMode` to `none` if manually supplied.
   * **(OPTIONAL)** Address Mode
     * Mode for entering Credit Card billing address.  Options are `postalCode`, `fullAddress`, and `none`
   * **(OPTIONAL)** Card Number Mask Mode

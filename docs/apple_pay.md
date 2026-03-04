@@ -74,7 +74,7 @@ var body: some View {
     }
     .onChange(of: applePayCoordinator.paymentResults) { _, result in
         guard let result = result else { return }
-        state.transactionInProgress = false
+        session.transactionInProgress = false
         DispatchQueue.main.async {
             switch result {
             case .success(let transaction):
@@ -103,7 +103,7 @@ override func viewDidLoad {
     
 func setupBindings() {
     // Optional binding to listen to updates
-    state.$paymentResults
+    applePayCoordinator.$paymentResults
         .receive(on: DispatchQueue.main)
         .sink { [weak self] result in
             guard let result = result else { return }
@@ -135,7 +135,9 @@ await applePayCoordinator.performTransaction(amount: 13.37,
   * **(OPTIONAL)** Client Transaction Id
     * An identifier for the transaction, used for tracking purposes. Defaults to a randomly generated UUID if not supplied.
   * **(OPTIONAL)** Merchant Reference
-    * A reference value for the transaction, usually the ticket or order number
+    * A reference value for the transaction, usually the ticket or order number.
+  * **(OPTIONAL)** Payment Session
+    * An observable object that you can subscribe to for updates such as if a transaction is currently in progress.
 
 #### Results
 The results are returned as an `MobilePaymentsApplePayResult` enum.
