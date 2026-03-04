@@ -1,18 +1,14 @@
 //
-//  ComponentsView.swift
+//  TokenizePayView.swift
 //  PaymentsSample
 //
-//  Created by Allan Cheng on 2/13/26.
+//  Created by Allan Cheng on 3/4/26.
 //
 
 import SwiftUI
 import FiservMobilePayments
-import PassKit
-import UIKit
-import Foundation
 
-// Component view to illustrate embeding the SDK's component into your own view
-struct ComponentsView: View {
+struct TokenizePayView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
 
     @ObservedObject var paymentSession: PaymentSession = PaymentSession()
@@ -23,13 +19,14 @@ struct ComponentsView: View {
     @State private var alertMessage: String = ""
     @State private var showAlert: Bool = false
     
-    @StateObject private var applePayCoordinator = MobilePaymentsApplePayCoordinator()
-    @State private var isApplePayAvailable: Bool = true
+    @State private var showAddCreditCard: Bool = false
+    
+    @State private var tokenizedCard: CreditCard?
     
     let itemOnePrice: Decimal = Decimal(Int.random(in: 1...7_000)) / 100
     let itemTwoPrice: Decimal = Decimal(Int.random(in: 1...7_000)) / 100
     let taxesAndFees: Decimal = 5.95
-    
+        
     var total: Decimal {
         itemOnePrice + itemTwoPrice + taxesAndFees
     }
@@ -42,18 +39,6 @@ struct ComponentsView: View {
                 VStack {
                     ScrollView {
                         VStack {
-                            // Presents the SDK's'credit card list component.
-                            // Disables scrolling because this is embeded inside a ScrollView
-                            // Enabled requireCvv to forcefully collect CVV. Can be set to false if desired
-                            CreditCardListView(session: paymentSession,
-                                               scrollingEnabled: false,
-                                               requireCvv: true,
-                                               addressMode: .fullAddress,
-                                               cardNumberMaskMode: .lastFourVisible) { creditCard in
-                                self.paymentSession.payment = creditCard
-                            }
-                            .padding(.top)
-                            
                             Text("Your Cart")
                                 .font(.system(size: 22, weight: .bold))
                                 .foregroundStyle(Color(colorProvider.darkText))
@@ -123,37 +108,37 @@ struct ComponentsView: View {
                             }
                             .padding()
                             
-                            // If apple pay is available, present an Apple Pay button for the user to checkout with
-                            if isApplePayAvailable {
-                                PayWithApplePayButton(.buy, action: {
-                                    // User tapped on apple pay button
-                                    Task {
-                                        // Use the SDK's MobilePaymentsApplePayCoordinator to start the Apple Pay flow
-                                        await applePayCoordinator.performTransaction(amount: total,
-                                                                                     applePayMerchantId: applePayMerchantId,
-                                                                                     session: paymentSession)
-                                    }
-                                })
-                                .padding(.horizontal)
-                                .payWithApplePayButtonStyle(colorProvider.background == DarkColorProvider().background ? .white : .black)
-                                .disabled(paymentSession.transactionInProgress)
-                                .frame(maxWidth: .infinity, minHeight: 48, maxHeight: 48)
+                            Button {
+                                showAddCreditCard = true
+                            } label: {
+                                Text("Tokenize Card")
                             }
+                            .buttonStyle(RoundedButtonStyle())
+                            .padding(.horizontal)
                             
-                            Text("Acme provides information you submit through this site to a vendor for security purposes. Please see the Privacy Policy for more information.")
-                                .font(.system(size: 14))
-                                .foregroundStyle(Color(colorProvider.mediumText))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .multilineTextAlignment(.leading)
-                                .padding([.horizontal, .top])
-                            
-                            Text("Terms and Conditions of Service")
-                                .font(.system(size: 14))
-                                .foregroundStyle(Color(colorProvider.primary))
-                                .underline(color: Color(colorProvider.primary))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .multilineTextAlignment(.leading)
-                                .padding(.horizontal)
+                            if let token = tokenizedCard?.token {
+                                Text("Credit Card Token")
+                                    .font(.system(size: 18, weight: .semibold))
+                                    .foregroundStyle(Color(colorProvider.darkText))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding([.horizontal, .top])
+                                    .multilineTextAlignment(.leading)
+                                
+                                Text(token)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundStyle(Color(colorProvider.darkText))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
+                                    .padding(.top, 4)
+                                    .multilineTextAlignment(.leading)
+                            } else {
+                                Text("No Credit Card entered.")
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundStyle(Color(colorProvider.darkText))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding([.horizontal, .top])
+                                    .multilineTextAlignment(.leading)
+                            }
                         }
                     }
                     .scrollDismissesKeyboard(.immediately)
@@ -194,26 +179,6 @@ struct ComponentsView: View {
                         .tint(.white)
                 }
             }
-            .onChange(of: applePayCoordinator.paymentResults) { _, result in
-                // Listen to the resulting Apple Pay sales transaction if user paid with Apple Pay
-                guard let result = result else { return }
-                switch result {
-                case .success(let transaction):
-                    alertTitle = "Success!"
-                    alertMessage = "Apple Pay transaction successful. Transaction ID: \(transaction.transactionId).\nPaid \(transaction.amount) \(transaction.currencyCode?.uppercased() ?? "USD")"
-                    showAlert = true
-                case .failure(let error):
-                    alertTitle = "Error!"
-                    var message = error.error.localizedDescription
-                    if let corrId = error.error.correlationId {
-                        message = "\(message) (\(corrId))"
-                    }
-                    alertMessage = message
-                    showAlert = true
-                default:
-                    break
-                }
-            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color(colorProvider.background), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
@@ -231,7 +196,7 @@ struct ComponentsView: View {
                 .hideSharedBackground()
                 
                 ToolbarItem(placement: .principal) {
-                    Text("UI Components")
+                    Text("Tokenize and Pay")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color(colorProvider.darkText))
                 }
@@ -239,23 +204,28 @@ struct ComponentsView: View {
             .background(Color(colorProvider.background))
         }
         .task {
-            do {
-                isApplePayAvailable = try await PaymentManager.shared.canPayWithApplePay()
-            } catch {
-                alertTitle = "Apple Pay Error"
-                var message = error.localizedDescription
-                if let corrId = (error as NSError).userInfo["correlationId"] as? String, !corrId.isEmpty {
-                    message = "\(message) (\(corrId))"
-                }
-                alertMessage = message
-                showAlert = true
-            }
             paymentSession.amount = total
+        }
+        .onChange(of: paymentSession.transactionInProgress) { _, newValue in
+            // Use transactionInProgress from payment session to show/hide spinner
+            isLoading = newValue
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK", role: .cancel) { }
         } message: {
             Text(alertMessage)
+        }
+        .sheet(isPresented: $showAddCreditCard) {
+            CreditCardDetailsModal(
+                canSaveCard: false,
+                addressMode: .postalCode,
+                cardNumberMaskMode: .lastFourVisible) { card in
+                    // Update UI
+                    tokenizedCard = card
+                    // Add the tokenized card to the payment session to use as payment
+                    paymentSession.payment = card
+                }
+                .presentationDetents([.large, .height(600)])
         }
     }
 }

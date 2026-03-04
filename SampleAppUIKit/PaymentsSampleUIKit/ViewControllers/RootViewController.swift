@@ -53,6 +53,19 @@ class RootViewController: UIViewController {
         return button
     }()
     
+    private lazy var tokenizePayButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.title = "Tokenize Card And Pay"
+        config.baseBackgroundColor = .systemBlue
+        config.baseForegroundColor = .white
+        config.background.cornerRadius = UIConstants.buttonHeight / 2
+        let button = UIButton(configuration: config)
+        button.addAction(UIAction { _ in
+            self.tokenizePayTapped()
+        }, for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var stylesLabel: UILabel = {
         let label = UILabel()
         label.text = "Styles"
@@ -128,6 +141,7 @@ class RootViewController: UIViewController {
         contentContainer.addSubview(sheetsButton)
         contentContainer.addSubview(componentsButton)
         contentContainer.addSubview(guestCheckoutButton)
+        contentContainer.addSubview(tokenizePayButton)
         contentContainer.addSubview(stylesLabel)
         contentContainer.addSubview(styleStackView)
         
@@ -156,8 +170,15 @@ class RootViewController: UIViewController {
             $0.height.equalTo(UIConstants.buttonHeight)
         }
         
-        stylesLabel.snp.makeConstraints {
+        tokenizePayButton.snp.makeConstraints {
             $0.top.equalTo(guestCheckoutButton.snp.bottom).offset(UIConstants.marginDefault)
+            $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
+            $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
+            $0.height.equalTo(UIConstants.buttonHeight)
+        }
+        
+        stylesLabel.snp.makeConstraints {
+            $0.top.equalTo(tokenizePayButton.snp.bottom).offset(UIConstants.marginDefault)
             $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
             $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
         }
@@ -205,6 +226,15 @@ class RootViewController: UIViewController {
     func directApiTapped() {
         let vc = DirectAPIViewController()
         vc.title = "Direct API"
+        if let colorProvider = colorProvider {
+            vc.colorProvider = colorProvider
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tokenizePayTapped() {
+        let vc = TokenizePayViewController()
+        vc.title = "Tokenize and Pay"
         if let colorProvider = colorProvider {
             vc.colorProvider = colorProvider
         }

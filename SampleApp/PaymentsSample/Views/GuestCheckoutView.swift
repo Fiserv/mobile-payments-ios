@@ -13,7 +13,7 @@ import PassKit
 struct GuestCheckoutView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
     
-    @ObservedObject var paymentState: PaymentState = PaymentState()
+    @ObservedObject var paymentSession: PaymentSession = PaymentSession()
     @State private var amount: String = ""
     @FocusState private var amountFocused: Bool
     
@@ -101,12 +101,12 @@ struct GuestCheckoutView: View {
                                 // Use the SDK's MobilePaymentsApplePayCoordinator to start the Apple Pay flow
                                 await applePayCoordinator.performTransaction(amount: total,
                                                                              applePayMerchantId: applePayMerchantId,
-                                                                             state: paymentState)
+                                                                             session: paymentSession)
                             }
                         })
                         .padding(.horizontal)
                         .payWithApplePayButtonStyle(colorProvider.background == DarkColorProvider().background ? .white : .black)
-                        .disabled(paymentState.transactionInProgress)
+                        .disabled(paymentSession.transactionInProgress)
                         .frame(maxWidth: .infinity, minHeight: 48, maxHeight: 48)
                     }
                     
@@ -127,7 +127,7 @@ struct GuestCheckoutView: View {
                         .padding(.horizontal)
                     
                     // Set the SDK's purchase button component to oneTimeUse opperation
-                    PurchaseButton(state: paymentState,
+                    PurchaseButton(session: paymentSession,
                                    transactionType: .sale,
                                    purchaseButtonOperationMode: .oneTimeUse,
                                    autoSubmitAfterAddingCard: true) { result in
@@ -167,7 +167,7 @@ struct GuestCheckoutView: View {
                 amountFocused = false
             }
             .onChange(of: amount) { _,_ in
-                paymentState.amount = total
+                paymentSession.amount = total
             }
             .onChange(of: applePayCoordinator.paymentResults) { _, result in
                 guard let result = result else { return }
@@ -213,7 +213,7 @@ struct GuestCheckoutView: View {
             .background(Color(colorProvider.background))
         }
         .task {
-            paymentState.amount = taxesAndFees
+            paymentSession.amount = taxesAndFees
             do {
                 isApplePayAvailable = try await PaymentManager.shared.canPayWithApplePay()
             } catch {

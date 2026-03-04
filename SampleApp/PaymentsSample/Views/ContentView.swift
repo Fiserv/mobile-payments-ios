@@ -12,9 +12,13 @@ import PassKit
 // Landing view to showcase customizing the colors, fonts, and shapes for the SDK
 // Presents an entry point to examples of how to use the SDK
 struct ContentView: View {
+    @State var customerId: String = ""
+    
     @State var showSheets: Bool = false
     @State var showComponents: Bool = false
     @State var showGuestCheckout: Bool = false
+    @State var showDirect: Bool = false
+    @State var showTokenizePay: Bool = false
     
     @State var alertTitle: String = ""
     @State var alertMessage: String = ""
@@ -49,6 +53,14 @@ struct ContentView: View {
                 showGuestCheckout = true
             }, label: {
                 Text("Guest Checkout")
+            })
+            .buttonStyle(RoundedButtonStyle())
+            .padding([.horizontal, .bottom])
+            
+            Button(action: {
+                showTokenizePay = true
+            }, label: {
+                Text("Tokenize Card And Pay")
             })
             .buttonStyle(RoundedButtonStyle())
             .padding([.horizontal, .bottom])
@@ -118,8 +130,6 @@ struct ContentView: View {
             MobilePayments.shared.initialize(environment: .sandbox,
                                              clientToken: token,
                                              businessLocationId: locationId)
-            
-            // Using device ID to represent customer as an example for this sample app
             if let customerId = UIDevice.current.identifierForVendor?.uuidString {
                 MobilePayments.shared.setCustomerId(customerId)
             }
@@ -130,6 +140,7 @@ struct ContentView: View {
             // Present the MobilePaymentsPurchaseView
             // This is a self-contained payment view that fully handle the entire payment flow
             MobilePaymentsPurchaseView(amount: amount,
+                                       customerId: customerId,
                                        applePayMerchantId: applePayMerchantId,
                                        applePayButtonLabel: .checkout,
                                        applePayButtonStyle: colorProvider.background == DarkColorProvider().background ? .white : .black,
@@ -142,6 +153,15 @@ struct ContentView: View {
         .fullScreenCover(isPresented: $showGuestCheckout) {
             // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
             GuestCheckoutView(colorProvider: $colorProvider)
+        }
+        .fullScreenCover(isPresented: $showDirect) {
+            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
+            DirectView(colorProvider: $colorProvider)
+        }
+        .fullScreenCover(isPresented: $showTokenizePay) {
+            // Presents the tokenize card and pay. This is an example of how to obtain a tokenized card from user input
+            // and how to use it to pay with using the SDK's built in PurchaseButton component
+            TokenizePayView(colorProvider: $colorProvider)
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK", role: .cancel) { }

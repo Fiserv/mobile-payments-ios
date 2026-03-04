@@ -1,8 +1,8 @@
 //
-//  ComponentViewController.swift
+//  TokenizePayViewController.swift
 //  PaymentsSampleUIKit
 //
-//  Created by Allan Cheng on 2/19/26.
+//  Created by Allan Cheng on 3/4/26.
 //
 
 import Foundation
@@ -11,45 +11,61 @@ import SnapKit
 import PassKit
 import Combine
 
-class ComponentViewController: UIViewController {
-    var isApplePayAvailable: Bool = false
+class TokenizePayViewController: UIViewController {
     var colorProvider: MobilePaymentsColorProvider = DefaultMobilePaymentsColorProvider()
     
     // Define a payment state to be used with the SDK components for amount, credit cards, etc
     private let session = PaymentSession()
     
-    // Apple Pay
-    private var applePayCoordinator = MobilePaymentsApplePayCoordinator()
-    private var cancellables = Set<AnyCancellable>()
-    
     // Views
-    private lazy var creditCardListView: UICreditCardListView = {
-        // SDK's credit card list component
-        // Disable scrolling because it is going to be embeded into an UIScrollView
-        // Enabled requireCvv to forcefully collect CVV. Can be set to false if desired
-        let view = UICreditCardListView(session: session,
-                                        scrollingEnabled: false,
-                                        requireCvv: true,
-                                        addressMode: .fullAddress,
-                                        cardNumberMaskMode: .lastFourVisible,
-                                        delegate: self)
-        view.add(to: self)
-        return view
-    }()
-    
     private lazy var purchaseButton: UIPurchaseButton = {
         let button = UIPurchaseButton(session: session, billingAddress: nil, delegate: self)
         button.add(to: self)
         return button
     }()
     
-    private lazy var applePayButton: PKPaymentButton = {
-        let apButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: colorProvider.background == DarkColorProvider().background ? .white : .black)
-        apButton.addAction(UIAction { [weak self] _ in
-            self?.applePayTapped()
+    private lazy var tokenizeCardButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.title = "Tokenize Card"
+        config.baseBackgroundColor = colorProvider.primary
+        config.baseForegroundColor = colorProvider.lightText
+        config.background.cornerRadius = UIConstants.buttonHeight / 2
+        let button = UIButton(configuration: config)
+        button.addAction(UIAction { _ in
+            self.showAddCreditCard()
         }, for: .touchUpInside)
-        return apButton
+        return button
     }()
+    
+    private lazy var tokenizedCardLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .left
+        label.textColor = colorProvider.darkText
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.text = "No credit card entered."
+        return label
+    }()
+    
+    // Spinner
+    private lazy var loadingOverlay: UIView = {
+        let overlay = UIView(frame: view.bounds)
+        overlay.backgroundColor = .black.withAlphaComponent(0.5)
+        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        // Setup a spinner to show when data is loading
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.color = .white
+        spinner.center = overlay.center
+        spinner.startAnimating()
+        
+        // Add spinner to overlay
+        overlay.addSubview(spinner)
+        return overlay
+    }()
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // Constants
     let itemOnePrice: Decimal = Decimal(Int.random(in: 1...7_000)) / 100
@@ -67,16 +83,21 @@ class ComponentViewController: UIViewController {
         setupView()
         session.amount = total
         
-        // Listen to apple pay results
-        applePayCoordinator.$paymentResults
+        // Listen to transactionInProgress to show/hide spinner
+        session.$transactionInProgress
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] results in
-                self?.processApplePayResults(results)
+            .sink { [weak self] isInProgress in
+                if isInProgress {
+                    self?.showSpinner()
+                } else {
+                    self?.hideSpinner()
+                }
             }
             .store(in: &cancellables)
     }
     
     func setupView() {
+        // Add views to the UI and setup the constraints
         let container = UIView()
         let scrollView = UIScrollView()
         let scrollViewContent = UIView()
@@ -87,9 +108,10 @@ class ComponentViewController: UIViewController {
         container.addSubview(purchaseButton)
 
         scrollView.addSubview(scrollViewContent)
-        
-        scrollViewContent.addSubview(creditCardListView)
         scrollViewContent.addSubview(fakeCheckoutView)
+        // Add the tokenize card button and label
+        scrollViewContent.addSubview(tokenizeCardButton)
+        scrollViewContent.addSubview(tokenizedCardLabel)
         
         container.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -112,35 +134,23 @@ class ComponentViewController: UIViewController {
             $0.width.equalTo(scrollView.frameLayoutGuide)
         }
         
-        creditCardListView.snp.makeConstraints {
+        fakeCheckoutView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIConstants.marginSmall)
             $0.left.right.equalToSuperview()
         }
         
-        fakeCheckoutView.snp.makeConstraints {
-            $0.top.equalTo(creditCardListView.snp.bottom).offset(UIConstants.marginDefault)
-            $0.left.right.equalToSuperview()
+        tokenizeCardButton.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
+            $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
+            $0.top.equalTo(fakeCheckoutView.snp.bottom).offset(UIConstants.marginDefault)
+            $0.height.equalTo(UIConstants.buttonHeight)
         }
         
-        // Add Apple Pay button if available
-        var currentView: UIView = fakeCheckoutView
-        if isApplePayAvailable {
-            scrollViewContent.addSubview(applePayButton)
-            applePayButton.snp.makeConstraints {
-                $0.top.equalTo(fakeCheckoutView.snp.bottom).offset(UIConstants.marginDefault)
-                $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
-                $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
-                $0.height.equalTo(UIConstants.buttonHeight)
-            }
-            
-            currentView = applePayButton
-        }
-        
-        let fakeTermsView = createFakeTermsView()
-        scrollViewContent.addSubview(fakeTermsView)
-        fakeTermsView.snp.makeConstraints {
-            $0.top.equalTo(currentView.snp.bottom).offset(UIConstants.marginDefault)
-            $0.left.right.bottom.equalToSuperview()
+        tokenizedCardLabel.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
+            $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
+            $0.top.equalTo(tokenizeCardButton.snp.bottom).offset(UIConstants.marginDefault)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -301,82 +311,33 @@ class ComponentViewController: UIViewController {
         return view
     }
     
-    func createFakeTermsView() -> UIView {
-        let container = UIView()
-        let termsLabel = UILabel()
-        termsLabel.text = "Acme provides information you submit through this site to a vendor for security purposes. Please see the Privacy Policy for more information."
-        termsLabel.textColor = colorProvider.mediumText
-        termsLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        termsLabel.numberOfLines = 0
-        termsLabel.lineBreakMode = .byWordWrapping
-        termsLabel.textAlignment = .left
-        termsLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        termsLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        container.addSubview(termsLabel)
-        
-        termsLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
-            $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
-        }
-        
-        let termsFakeLink = UILabel()
-        let textAttributes: [NSAttributedString.Key: Any] = [
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: colorProvider.primary,
-            .font: UIFont.systemFont(ofSize: 14, weight: .bold)
-        ]
-        termsFakeLink.attributedText = NSAttributedString(string: "Terms and Conditions of Service",
-                                                       attributes: textAttributes)
-        termsFakeLink.numberOfLines = 0
-        termsFakeLink.lineBreakMode = .byWordWrapping
-        termsFakeLink.textAlignment = .left
-        termsFakeLink.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        termsFakeLink.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        container.addSubview(termsFakeLink)
-        
-        termsFakeLink.snp.makeConstraints {
-            $0.top.equalTo(termsLabel.snp.bottom).offset(UIConstants.marginTiny)
-            $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
-            $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
-            $0.bottom.equalToSuperview()
-        }
-        
-        return container
-    }
-    
     func createDividerLine() -> UIView {
         let view = UIView()
         view.backgroundColor = colorProvider.darkText
         return view
     }
     
-    func applePayTapped() {
-        // Start the apple pay flow using the SDK
-        Task {
-            await applePayCoordinator.performTransaction(amount: total,
-                                                         applePayMerchantId: applePayMerchantId,
-                                                         transactionType: .sale)
-        }
+    func showAddCreditCard() {
+        let viewController = CreditCardDetailsViewController(canSaveCard: false,
+                                                             addressMode: .postalCode,
+                                                             cardNumberMaskMode: .lastFourVisible,
+                                                             delegate: self)
+        present(viewController, animated: true)
     }
     
-    func processApplePayResults(_ results: MobilePaymentsApplePayResult?) {
-        // Check the apple pay transaction results
-        guard let results = results else { return }
-        switch results {
-        case .success(let transaction):
-            let message = "Transaction successful. Transaction ID: \(transaction.transactionId).\nPaid \(transaction.amount) \(transaction.currencyCode?.uppercased() ?? "USD")"
-            showPopup(title: "Success!", message: message, from: self)
-        case .failure(let error):
-            showPopup(title: "Error!", message: error.error.localizedDescription, from: self)
-        default:
-            break
-        }
+    // Spinners
+    func showSpinner() {
+        guard loadingOverlay.superview == nil else { return }
+        view.addSubview(loadingOverlay)
+    }
+    
+    func hideSpinner() {
+        loadingOverlay.removeFromSuperview()
     }
 }
 
 //MARK: - PurchaseButtonDelegate
-extension ComponentViewController: PurchaseButtonDelegate {
+extension TokenizePayViewController: PurchaseButtonDelegate {
     func onTransactionCompleted(result: TransactionResult) {
         if let error = result.error {
             showPopup(title: "Error!", message: error.localizedDescription, from: self)
@@ -387,8 +348,29 @@ extension ComponentViewController: PurchaseButtonDelegate {
     }
 }
 
+extension TokenizePayViewController: CreditCardDetailsDelegate {
+    func onCardAdded(_ card: CreditCard) {
+        guard let token = card.token else { return }
+        // Update UI
+        let text = "Credit Card Token\n\(token)"
+        var attrString = AttributedString(text)
+        attrString.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        attrString.foregroundColor = colorProvider.darkText
+        
+        // Make the token a smaller font size
+        if let range = attrString.range(of: token) {
+            attrString[range].font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        }
+        
+        tokenizedCardLabel.attributedText = NSAttributedString(attrString)
+        
+        // Add the tokenized card to the payment session to use as payment
+        session.payment = card
+    }
+}
+
 //MARK: - CreditCardListDelegate
-extension ComponentViewController: CreditCardListDelegate {
+extension TokenizePayViewController: CreditCardListDelegate {
     func onCreditCardSelected(card: FiservMobilePayments.CreditCard) {
         // Credit card selected
     }

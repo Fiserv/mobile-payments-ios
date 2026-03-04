@@ -12,7 +12,7 @@ import SnapKit
 class GuestCheckoutViewController: UIViewController {
     var colorProvider: MobilePaymentsColorProvider = DefaultMobilePaymentsColorProvider()
     // Define a payment state to be used with the SDK components for amount, credit cards, etc
-    private let state = PaymentState()
+    private let session = PaymentSession()
     
     // Views
     private lazy var amountTextField: UITextField = {
@@ -42,7 +42,7 @@ class GuestCheckoutViewController: UIViewController {
     private lazy var purchaseButton: UIPurchaseButton = {
         // Set the SDK's purchase button to one time use and autosubmit
         // for express checkout flow
-        let button = UIPurchaseButton(state: state,
+        let button = UIPurchaseButton(session: session,
                                       purchaseButtonOperationMode: .oneTimeUse,
                                       autoSubmitAfterAddingCard: true,
                                       billingAddress: nil,
@@ -61,7 +61,7 @@ class GuestCheckoutViewController: UIViewController {
         setupView()
         
         // Set the initial taxes and fee amount
-        state.amount = taxesAndFees
+        session.amount = taxesAndFees
         
         // Detect when user enter in an amount
         amountTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -231,7 +231,7 @@ class GuestCheckoutViewController: UIViewController {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         let amount = parseAmount() + taxesAndFees
-        state.amount = amount
+        session.amount = amount
         priceLabel.text = amount.formatted(.currency(code: "USD"))
     }
     
