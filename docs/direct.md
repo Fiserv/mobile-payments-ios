@@ -80,7 +80,7 @@ CreditCardManager.shared.addCreditCard(creditCard: card, save: true) { result in
 ```
 
 ### Deleting a Credit Card
-This method will delete a tokenized card from the remote server.  If it had been saved to a Customer ID, it will be removed from that reference as well.
+This method will delete a card tokenized by the mobile SDK from the remote server.  If it had been saved to a Customer ID, it will be removed from that reference as well.
 ```
 deleteCreditCard(creditCard: CreditCard)
 ```
@@ -109,7 +109,7 @@ CreditCardManager.shared.deleteCreditCard(creditCard: card) { result in
 ```
 
 ### Defaulting a Credit Card
-This method will set a tokenized card to be the default credit card for the customer. 
+This method will set a card tokenized by the mobile SDK to be the default credit card for the customer. 
 ```
 makeCreditCardDefault(creditCard: CreditCard, customerId: String?)
 ```
