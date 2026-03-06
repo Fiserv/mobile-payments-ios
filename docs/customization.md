@@ -9,11 +9,12 @@ The MobilePayments SDK uses the `MobilePaymentsStyleProvider` in order to contro
   * [Shape](#shape)
   * [Copy](#copy)
   
-**Note:** All desired customizations must be provided together by applying it like this:
-```
-let style = MobilePaymentsStyleProvider(colors: color, fonts: font, shapes: shape)
-MobilePayments.shared.setStyle(style)
-```
+> [!Note] 
+> All desired customizations must be provided together by applying it like this:
+>```
+>let style = MobilePaymentsStyleProvider(colors: color, fonts: font, shapes: shape)
+>MobilePayments.shared.setStyle(style)
+>```
 All styling parameters ([Color](#color), [Font](#font), [Shape](#shape)) are optional. You can customize only the properties you need. Any unspecified values will use the SDK defaults. Refer to the sections below for details on generating the configuration values to pass into this method
 
 ## Color

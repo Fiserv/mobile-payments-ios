@@ -199,7 +199,8 @@ extension YourViewController: CreditCardDetailsDelegate {
     * Closure invoked when a CreditCard is successfully tokenized and is passed to the calling UI
 
 #### View
-**Note:** It is strongly recommended you do not use the CreditCardDetailsView if you are already making use of the CreditCardListView with canAddCards = true or if you are leveraging the CreditCardDetailsModal in any way.
+> [!Note] 
+> It is strongly recommended you do not use the CreditCardDetailsView if you are already making use of the CreditCardListView with canAddCards = true or if you are leveraging the CreditCardDetailsModal in any way.
 
 Credit Card Details is handled through the `CreditCardDetailsView`, a vertical stack containing a collection of input fields.  It is designed to take user text input and when prompted convert it into a tokenized `CreditCard` object and, if a Customer ID value is provided and the user allows it, save the card to the provided Customer ID.
 

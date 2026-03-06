@@ -11,6 +11,13 @@ The MobilePayments APIs are broken into several distinct categories, which you c
 ## Credit Cards
 Credit Cards are handled through the `CreditCardManager` object.  This is a singleton reference to contain all Credit Card interactions with the MobilePayments API.
 
+> [!NOTE]  
+> **Token Usage**
+> 
+> Depending on your integration architecture, this SDK provides two distinct methods for handling tokenized cards:
+> * `token`: For workflows managed entirely by the SDK.
+> * `gatewayToken`: For workflows where the token is used and supplied outside of the mobile SDK's ecosystem.
+
 ### Retrieving Saved Credit Cards
 Retrieves the saved credit cards for a specific customer.
 ```
