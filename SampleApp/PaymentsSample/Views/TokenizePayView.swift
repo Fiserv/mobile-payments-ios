@@ -116,7 +116,7 @@ struct TokenizePayView: View {
                             .buttonStyle(RoundedButtonStyle())
                             .padding(.horizontal)
                             
-                            if let token = tokenizedCard?.token {
+                            if let card = tokenizedCard, let token = card.gatewayToken ?? card.token {
                                 Text("Credit Card Token")
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundStyle(Color(colorProvider.darkText))

@@ -350,7 +350,8 @@ extension TokenizePayViewController: PurchaseButtonDelegate {
 
 extension TokenizePayViewController: CreditCardDetailsDelegate {
     func onCardAdded(_ card: CreditCard) {
-        guard let token = card.token else { return }
+        let token = card.gatewayToken ?? card.token
+        guard let token = token else { return }
         // Update UI
         let text = "Credit Card Token\n\(token)"
         var attrString = AttributedString(text)
