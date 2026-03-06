@@ -114,7 +114,7 @@ This method will set a card tokenized by the mobile SDK to be the default credit
 makeCreditCardDefault(creditCard: CreditCard, customerId: String?)
 ```
 * **`creditCard`**:
-    * A tokenized `CreditCard` object to be deleted
+    * A tokenized `CreditCard` object to be made the default selection
 * **`customerId`** *(Optional)*: 
     * You can provide a specific Customer ID here. If omitted, the SDK defaults to the ID provided during `MobilePayments.shared.setCustomerId()` call.
     
