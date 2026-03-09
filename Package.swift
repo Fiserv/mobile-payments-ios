@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "mobile-payments-ios",
     platforms: [
-        .iOS(.v16_4)
+        .iOS("16.4")
     ],
     products: [
         .library(
