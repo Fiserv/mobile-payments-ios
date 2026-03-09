@@ -171,57 +171,99 @@ There is a small collection of string values baked into the UI elements, general
 
 **Warning:** Strings containing non-standard characters or of excessive length may impact UI negatively.  Test and review any changes before release to ensure compatibility with your designated copy.
 
+>[!NOTE]
+>Keys prefixed with `mp_accessibility` are used to customize the VoiceOver text for UI elements. Just like standard display text, these are strictly optional if your app is in English as the SDK provides default descriptive values out of the box.
+
 The Mobile Payments iOS SDK utilizes the standard `Localizable.strings`, drawing from these values:
 ```
 // Credit Cards
 "mp_creditCardListTitle" = "Saved Cards";
+"mp_accessibilityCreditCardListTitle" = "Saved Cards";
 "mp_creditCardAddCardButton" = "Add Credit Card";
+"mp_accessibilityCreditCardAddCardButton" = "Add Credit Card";
 
 // Credit Card List Item
 "mp_creditCardItemNumber" = "•••• %@";
+"mp_accessibilityCreditCardItemNumber" = "Ending in %@";
 "mp_creditCardItemExpiration" = "Exp. %@/%@";
+"mp_accessibilityCreditCardItemExpiration" = "Expiring in %@/%@";
 "mp_creditCardItemExpired" = "Expired";
+"mp_accessibilityCreditCardItemExpired" = "Expired";
 
 // Credit Card Details
 "mp_creditCardDetailsTitle" = "Card Info";
+"mp_accessibilityCreditCardDetailsTitle" = "Card Information";
 "mp_creditCardDetailsAddCardButton" = "Add Card";
+"mp_accessibilityCreditCardDetailsAddCardButton" = "Add Card";
 "mp_creditCardDetailsAddCardAndPayButton" = "Pay %@";
+"mp_accessibilityCreditCardDetailsAddCardAndPayButton" = "Pay %@";
 
 "mp_creditCardDetailsName" = "Name on Card";
+"mp_accessibilityCreditCardDetailsName" = "Cardholder name";
 "mp_creditCardDetailsCardNumber" = "Credit Card Number";
+"mp_accessibilityCreditCardDetailsCardNumber" = "Credit Card Number";
 "mp_creditCardDetailsExpiration" = "Exp. Date";
+"mp_accessibilityCreditCardDetailsExpiration" = "Expiration Date";
 "mp_creditCardDetailsCvv" = "CVV";
+"mp_accessibilityCreditCardDetailsCvv" = "Security Code";
 "mp_creditCardDetailsPostalCode" = "Postal Code";
+"mp_accessibilityCreditCardDetailsPostalCode" = "Postal Code";
 
 "mp_creditCardDetailsSaveLabel" = "Save card for future orders";
+"mp_accessibilityCreditCardDetailsSaveLabel" = "Save card for future orders";
 "mp_creditCardDetailsDefaultLabel" = "Set as default card";
+"mp_accessibilityCreditCardDetailsDefaultLabel" = "Set as default card";
 
 // Purchase Button
 "mp_purchaseButtonLabel" = "Purchase";
+"mp_accessibilityPurchaseButtonLabel" = "Purchase";
 "mp_purchaseButtonAmountLabel" = "Total";
+"mp_accessibilityPurchaseButtonAmountLabel" = "Total";
 "mp_purchaseButtonAddCardAtCheckoutLabel" = "Pay With Card";
+"mp_accessibilityPurchaseButtonAddCardAtCheckoutLabel" = "Pay With Card";
 "mp_purchaseButtonAddCardAtCheckoutPaymentLabel" = "Pay with %@";
+"mp_accessibilityPurchaseButtonAddCardAtCheckoutPaymentLabel" = "Pay with %@";
 
 // Purchase View
 "mp_purchaseActivityTitle" = "Pay Now";
+"mp_accessibilityPurchaseActivityTitle" = "Pay Now";
 "mp_purchasePaymentDivider" = "OR PAY WITH CARD";
+"mp_accessibilityPurchasePaymentDivider" = "Or Pay With Card";
 
 // Address
 "mp_addressContainerTitle" = "Billing Address";
+"mp_accessibilityAddressContainerTitle" = "Billing Address";
 "mp_addressContainerAddNewButton" = "Add new address";
+"mp_accessibilityAddressContainerAddNewButton" = "Add new address";
 
 "mp_addressDetailsTitle" = "Address";
+"mp_accessibilityAddressDetailsTitle" = "Address";
 "mp_addressDetailsConfirmAddressButton" = "Confirm";
+"mp_accessibilityAddressDetailsConfirmAddressButton" = "Confirm";
 
 "mp_addressDetailsLine1" = "Line 1";
+"mp_accessibilityAddressDetailsLine1" = "Address Line 1";
 "mp_addressDetailsLine2" = "Line 2";
+"mp_accessibilityAddressDetailsLine2" = "Address Line 2";
 "mp_addressDetailsCity" = "City";
+"mp_accessibilityAddressDetailsCity" = "City";
 "mp_addressDetailsState" = "State";
+"mp_accessibilityAddressDetailsState" = "State";
 "mp_addressDetailsPostalCode" = "Postal Code";
+"mp_accessibilityAddressDetailsPostalCode" = "Postal Code";
 "mp_addressDetailsCountry" = "Country";
+"mp_accessibilityAddressDetailsCountry" = "Country";
+
+// General Accessibility
+"mp_accessibilityCloseButton" = "Close";
+"mp_accessibilityBackButton" = "Back";
+"mp_accessibilityDeleteButton" = "Delete";
+"mp_accessibilityCheckboxSelected" = "Toggled On";
+"mp_accessibilityCheckboxUnselected" = "Toggled Off";
 
 // Error Alert
 "mp_errorButtonLabel" = "OK";
+"mp_accessibilityErrorButtonLabel" = "OK";
 ```
 To customize, simply add any of these string keys in your `Localizable.strings` file and change the value as desired.
 
@@ -229,4 +271,4 @@ For example, if you wish to change the purchase button's label, simply add
 ```
 mp_purchaseButtonLabel = "<Your customized button label>";
 ```
-to your `Localizable.strings` file
+to your `Localizable.strings` file.
