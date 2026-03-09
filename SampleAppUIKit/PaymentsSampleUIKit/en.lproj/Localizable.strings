@@ -1,0 +1,96 @@
+/*
+  Localizable.strings
+  
+
+  Note that all of these are optionals and you can simply add the key-values for the strings you wish to override in your Localizable.string file.
+  If your app supports different langauges other than English, you will have to provide transation for all of these localization keys.
+*/
+
+// Credit Cards
+"mp_creditCardListTitle" = "Saved Cards";
+"mp_accessibilityCreditCardListTitle" = "ADA Override Example Saved Cards";
+"mp_creditCardAddCardButton" = "Add Credit Card";
+"mp_accessibilityCreditCardAddCardButton" = "ADA Override Example Add Credit Card";
+
+// Credit Card List Item
+"mp_creditCardItemNumber" = "•••• %@";
+"mp_accessibilityCreditCardItemNumber" = "ADA Override Example Ending in %@";
+"mp_creditCardItemExpiration" = "Exp. %@/%@";
+"mp_accessibilityCreditCardItemExpiration" = "ADA Override Example Expiring in %@/%@";
+"mp_creditCardItemExpired" = "Expired";
+"mp_accessibilityCreditCardItemExpired" = "ADA Override Example Expired";
+
+// Credit Card Details
+"mp_creditCardDetailsTitle" = "Card Info";
+"mp_accessibilityCreditCardDetailsTitle" = "ADA Override Example Information";
+"mp_creditCardDetailsAddCardButton" = "Add Card";
+"mp_accessibilityCreditCardDetailsAddCardButton" = "ADA Override Example Add Card";
+"mp_creditCardDetailsAddCardAndPayButton" = "Pay %@";
+"mp_accessibilityCreditCardDetailsAddCardAndPayButton" = "ADA Override Example Pay %@";
+
+"mp_creditCardDetailsName" = "Name on Card";
+"mp_accessibilityCreditCardDetailsName" = "ADA Override Example Cardholder name";
+"mp_creditCardDetailsCardNumber" = "Credit Card Number";
+"mp_accessibilityCreditCardDetailsCardNumber" = "ADA Override Example Credit Card Number";
+"mp_creditCardDetailsExpiration" = "Exp. Date";
+"mp_accessibilityCreditCardDetailsExpiration" = "ADA Override Example Expiration Date";
+"mp_creditCardDetailsCvv" = "CVV";
+"mp_accessibilityCreditCardDetailsCvv" = "ADA Override Example Security Code";
+"mp_creditCardDetailsPostalCode" = "Postal Code";
+"mp_accessibilityCreditCardDetailsPostalCode" = "ADA Override Example Postal Code";
+
+"mp_creditCardDetailsSaveLabel" = "Save card for future orders";
+"mp_accessibilityCreditCardDetailsSaveLabel" = "ADA Override Example Save card for future orders";
+"mp_creditCardDetailsDefaultLabel" = "Set as default card";
+"mp_accessibilityCreditCardDetailsDefaultLabel" = "ADA Override Example Set as default card";
+
+// Purchase Button
+"mp_purchaseButtonLabel" = "Purchase";
+"mp_accessibilityPurchaseButtonLabel" = "ADA Override Example Purchase";
+"mp_purchaseButtonAmountLabel" = "Total";
+"mp_accessibilityPurchaseButtonAmountLabel" = "ADA Override Example Total";
+"mp_purchaseButtonAddCardAtCheckoutLabel" = "Pay With Card";
+"mp_accessibilityPurchaseButtonAddCardAtCheckoutLabel" = "ADA Override Example Pay With Card";
+"mp_purchaseButtonAddCardAtCheckoutPaymentLabel" = "Pay with %@";
+"mp_accessibilityPurchaseButtonAddCardAtCheckoutPaymentLabel" = "ADA Override Example Pay with %@";
+
+// Purchase View
+"mp_purchaseActivityTitle" = "Pay Now";
+"mp_accessibilityPurchaseActivityTitle" = "ADA Override Example Pay Now";
+"mp_purchasePaymentDivider" = "OR PAY WITH CARD";
+"mp_accessibilityPurchasePaymentDivider" = "ADA Override Example Or Pay With Card";
+
+// Address
+"mp_addressContainerTitle" = "Billing Address";
+"mp_accessibilityAddressContainerTitle" = "ADA Override Example Billing Address";
+"mp_addressContainerAddNewButton" = "Add new address";
+"mp_accessibilityAddressContainerAddNewButton" = "ADA Override Example Add new address";
+
+"mp_addressDetailsTitle" = "Address";
+"mp_accessibilityAddressDetailsTitle" = "ADA Override Example Address";
+"mp_addressDetailsConfirmAddressButton" = "Confirm";
+"mp_accessibilityAddressDetailsConfirmAddressButton" = "ADA Override Example Confirm";
+
+"mp_addressDetailsLine1" = "Line 1";
+"mp_accessibilityAddressDetailsLine1" = "ADA Override Example Address Line 1";
+"mp_addressDetailsLine2" = "Line 2";
+"mp_accessibilityAddressDetailsLine2" = "ADA Override Example Address Line 2";
+"mp_addressDetailsCity" = "City";
+"mp_accessibilityAddressDetailsCity" = "ADA Override Example City";
+"mp_addressDetailsState" = "State";
+"mp_accessibilityAddressDetailsState" = "ADA Override Example State";
+"mp_addressDetailsPostalCode" = "Postal Code";
+"mp_accessibilityAddressDetailsPostalCode" = "ADA Override Example Postal Code";
+"mp_addressDetailsCountry" = "Country";
+"mp_accessibilityAddressDetailsCountry" = "ADA Override Example Country";
+
+// General Accessibility
+"mp_accessibilityCloseButton" = "ADA Override Example Close";
+"mp_accessibilityBackButton" = "ADA Override Example Back";
+"mp_accessibilityDeleteButton" = "ADA Override Example Delete";
+"mp_accessibilityCheckboxSelected" = "ADA Override Example Toggled On";
+"mp_accessibilityCheckboxUnselected" = "ADA Override Example Toggled Off";
+
+// Error Alert
+"mp_errorButtonLabel" = "OK";
+"mp_accessibilityErrorButtonLabel" = "ADA Override Example OK";
