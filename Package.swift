@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "FiservMobilePayments",
+    name: "mobile-payments-ios",
     platforms: [
         .iOS(.v16_4)
     ],
