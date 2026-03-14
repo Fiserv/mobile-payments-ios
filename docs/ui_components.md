@@ -37,7 +37,8 @@ The Credit Card List is provided through the `CreditCardListView` View for Swift
 import FiservMobilePayments
 
 struct YourView: View {
-    @ObservedObject private var session = PaymentSession()
+    // Use @StateObject if your view creates the object and use @ObservedObject if the object is passed in from another view.
+    @StateObject private var session = PaymentSession()
     
     var body: some View {
         ZStack {
