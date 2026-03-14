@@ -147,7 +147,7 @@ struct ContentView: View {
                                        customerId: customerId,
                                        applePayMerchantId: applePayMerchantId,
                                        applePayButtonLabel: .checkout,
-                                       applePayButtonStyle: $applePayButtonStyle,
+                                       applePayButtonStyle: applePayButtonStyle,
                                        delegate: self)
         }
         .fullScreenCover(isPresented: $showComponents) {
