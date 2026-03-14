@@ -25,6 +25,7 @@ struct ContentView: View {
     @State var showAlert = false
     
     @State var colorProvider: MobilePaymentsColorProvider = DefaultMobilePaymentsColorProvider()
+    @State private var applePayButtonStyle: PayWithApplePayButtonStyle = .black
         
     var body: some View {
         VStack {
@@ -78,6 +79,7 @@ struct ContentView: View {
                     let shape = CustomShapeProvider()
                     let style = MobilePaymentsStyleProvider(colors: color, fonts: font, shapes: shape)
                     MobilePayments.shared.setStyle(style)
+                    self.applePayButtonStyle = .black
                     self.colorProvider = style.colors
                     alertTitle = "Style #1 (Blocky Yellow) Applied"
                     alertMessage = ""
@@ -95,6 +97,7 @@ struct ContentView: View {
                     let style = MobilePaymentsStyleProvider(colors: color)
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
+                    self.applePayButtonStyle = .white
                     alertTitle = "Style #2 (Dark) Applied"
                     alertMessage = ""
                     showAlert = true
@@ -110,6 +113,7 @@ struct ContentView: View {
                     let style = MobilePaymentsStyleProvider()
                     MobilePayments.shared.setStyle(style)
                     self.colorProvider = style.colors
+                    self.applePayButtonStyle = .black
                     alertTitle = "Default Style Applied"
                     alertMessage = ""
                     showAlert = true
@@ -143,7 +147,7 @@ struct ContentView: View {
                                        customerId: customerId,
                                        applePayMerchantId: applePayMerchantId,
                                        applePayButtonLabel: .checkout,
-                                       applePayButtonStyle: colorProvider.background == DarkColorProvider().background ? .white : .black,
+                                       applePayButtonStyle: $applePayButtonStyle,
                                        delegate: self)
         }
         .fullScreenCover(isPresented: $showComponents) {

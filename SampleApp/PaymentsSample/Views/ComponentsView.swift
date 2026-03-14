@@ -15,7 +15,8 @@ import Foundation
 struct ComponentsView: View {
     @SwiftUI.Environment(\.dismiss) private var dismiss
 
-    @ObservedObject var paymentSession: PaymentSession = PaymentSession()
+    // Use @StateObject if your view creates the object and use @ObservedObject if the object is passed in from another view.
+    @StateObject var paymentSession: PaymentSession = PaymentSession()
     
     @State private var isLoading: Bool = false
     
