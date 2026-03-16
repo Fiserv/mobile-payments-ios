@@ -12,8 +12,6 @@ import PassKit
 // Landing view to showcase customizing the colors, fonts, and shapes for the SDK
 // Presents an entry point to examples of how to use the SDK
 struct ContentView: View {
-    @State var customerId: String = ""
-    
     @State var showSheets: Bool = false
     @State var showComponents: Bool = false
     @State var showGuestCheckout: Bool = false
@@ -144,7 +142,6 @@ struct ContentView: View {
             // Present the MobilePaymentsPurchaseView
             // This is a self-contained payment view that fully handle the entire payment flow
             MobilePaymentsPurchaseView(amount: amount,
-                                       customerId: customerId,
                                        applePayMerchantId: applePayMerchantId,
                                        applePayButtonLabel: .checkout,
                                        applePayButtonStyle: applePayButtonStyle,

@@ -42,7 +42,10 @@ class ComponentViewController: UIViewController {
     }()
     
     private lazy var purchaseButton: UIPurchaseButton = {
-        let button = UIPurchaseButton(session: session, billingAddress: nil, delegate: self)
+        let button = UIPurchaseButton(session: session,
+                                      showTotal: false,
+                                      billingAddress: nil,
+                                      delegate: self)
         button.add(to: self)
         return button
     }()
