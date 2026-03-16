@@ -35,7 +35,6 @@ fastlane/screenshots
 
 # Others
 /PaymentsSample.xcodeproj/project.xcworkspace
-*.entitlements
 /SampleApp/PaymentsSample.xcodeproj/project.xcworkspace
 /SampleApp/PaymentsSample.xcworkspace
 /PaymentsSample.xcworkspace

@@ -122,6 +122,8 @@ extension YourViewController: CreditCardListDelegate {
     * Mode for entering Credit Card billing address.  Options are `postalCode`, `fullAddress`, and `none`
   * **(OPTIONAL)** Card Number Mask Mode
     * Masking strategy when entering Credit Card card number.  Options are `lastFourVisible`, `full`, and `none`
+  * **(OPTIONAL)** Card Number Mask Mode
+    * Collapsible mode of the list.  Options are `disabled`, `collapsed`, and `expanded`.  `Disabled` prevents all collapsible behavior, while `collapsed` and `expanded` enable the behavior and set the default list state.  Defaults to `collapsed`
   * **(OPTIONAL)** On Credit Card Selected (SwiftUI only)
     * A callback invoked whenever the user selects a card in the list.
   * **(OPTIONAL)** Credit Card List Delegate (UIKit only)

@@ -27,11 +27,15 @@ class ComponentViewController: UIViewController {
         // SDK's credit card list component
         // Disable scrolling because it is going to be embeded into an UIScrollView
         // Enabled requireCvv to forcefully collect CVV. Can be set to false if desired
+        // Address mode is set to full address to collect full billing address
+        // Card Number Mask Mode is set to last four visible to only show the last four entered digits
+        // Collapsible mode is set to collapsed so it will start the credit card list in a collapsed state
         let view = UICreditCardListView(session: session,
                                         scrollingEnabled: false,
                                         requireCvv: true,
                                         addressMode: .fullAddress,
                                         cardNumberMaskMode: .lastFourVisible,
+                                        collapsibleMode: .collapsed,
                                         delegate: self)
         view.add(to: self)
         return view

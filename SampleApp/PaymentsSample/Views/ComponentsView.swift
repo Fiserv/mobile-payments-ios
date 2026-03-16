@@ -46,11 +46,15 @@ struct ComponentsView: View {
                             // Presents the SDK's'credit card list component.
                             // Disables scrolling because this is embeded inside a ScrollView
                             // Enabled requireCvv to forcefully collect CVV. Can be set to false if desired
+                            // Address mode is set to full address to collect full billing address
+                            // Card Number Mask Mode is set to last four visible to only show the last four entered digits
+                            // Collapsible mode is set to collapsed so it will start the credit card list in a collapsed state
                             CreditCardListView(session: paymentSession,
                                                scrollingEnabled: false,
                                                requireCvv: true,
                                                addressMode: .fullAddress,
-                                               cardNumberMaskMode: .lastFourVisible) { creditCard in
+                                               cardNumberMaskMode: .lastFourVisible,
+                                               collapsibleMode: .collapsed) { creditCard in
                                 self.paymentSession.payment = creditCard
                             }
                             .padding(.top)
