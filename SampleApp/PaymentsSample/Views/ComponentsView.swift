@@ -166,6 +166,7 @@ struct ComponentsView: View {
                     // Presents the SDK's purchase button component.
                     // Process the transaction as a sales transaction
                     PurchaseButton(session: paymentSession,
+                                   showTotal: false,
                                    transactionType: .sale) { result in
                         if let error = result.error {
                             alertTitle = "Error!"
