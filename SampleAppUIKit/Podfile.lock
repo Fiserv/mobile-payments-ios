@@ -1,5 +1,5 @@
 PODS:
-  - FiservMobilePayments (1.0.21)
+  - FiservMobilePayments (1.0.22)
   - SnapKit (5.7.1)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
-  FiservMobilePayments: cba7735dd38a189d0e4f98b740ab9b724bda0895
+  FiservMobilePayments: bd907341e5cdc5a5a7eb98753159e4faf86fae38
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
 PODFILE CHECKSUM: 5bedb45c6ce5dee80752904cb9a4b3a01f364161
