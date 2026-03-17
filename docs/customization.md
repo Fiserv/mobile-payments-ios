@@ -29,9 +29,11 @@ protocol MobilePaymentsColorProvider {
     var error: UIColor { get }
     var darkText: UIColor { get }
     var mediumText: UIColor { get }
+    var disabledText: UIColor { get }
     var lightBackground: UIColor { get }
     var lightText: UIColor { get }
     var background: UIColor { get }
+    var highlight: UIColor { get }
 }
 ```
 In order to customize the colors, you simply implement this protocol in a custom class and set the colors you wish to change.  For example:
