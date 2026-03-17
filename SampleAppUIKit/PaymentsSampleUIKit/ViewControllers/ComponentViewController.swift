@@ -58,6 +58,63 @@ class ComponentViewController: UIViewController {
         return apButton
     }()
     
+    private lazy var termsCheckbox: UIButton = {
+        let checkbox = UIButton(type: .system)
+        var config = UIButton.Configuration.plain()
+        var text = AttributedString("I agree to the Terms and Conditions of Service")
+        text.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        text.foregroundColor = colorProvider.darkText
+        
+        if let range = text.range(of: "Terms and Conditions of Service") {
+            text[range].foregroundColor = colorProvider.primary
+            text[range].underlineStyle = .single
+            text[range].font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        }
+        
+        config.attributedTitle = text
+        config.imagePadding = 10
+        config.baseBackgroundColor = colorProvider.background
+        
+        checkbox.configuration = config
+        checkbox.changesSelectionAsPrimaryAction = true
+        checkbox.tintColor = colorProvider.darkText
+        checkbox.titleLabel?.numberOfLines = 0
+        checkbox.titleLabel?.lineBreakMode = .byWordWrapping
+        checkbox.titleLabel?.textAlignment = .left
+        checkbox.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        checkbox.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        checkbox.configurationUpdateHandler = { button in
+            var updatedConfig = button.configuration
+            updatedConfig?.image = UIImage(systemName: button.isSelected ? "checkmark.square.fill" : "square")
+            button.configuration = updatedConfig
+        }
+        
+        checkbox.addAction(UIAction { [weak self] _ in
+            let accepted = self?.termsCheckbox.isSelected ?? false
+            self?.purchaseButton.disabled = !accepted
+        }, for: .touchUpInside)
+        
+        return checkbox
+    }()
+    
+    // Spinner
+    private lazy var loadingOverlay: UIView = {
+        let overlay = UIView(frame: view.bounds)
+        overlay.backgroundColor = .black.withAlphaComponent(0.5)
+        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        // Setup a spinner to show when data is loading
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.color = .white
+        spinner.center = overlay.center
+        spinner.startAnimating()
+        
+        // Add spinner to overlay
+        overlay.addSubview(spinner)
+        return overlay
+    }()
+    
     // Constants
     let itemOnePrice: Decimal = Decimal(Int.random(in: 1...7_000)) / 100
     let itemTwoPrice: Decimal = Decimal(Int.random(in: 1...7_000)) / 100
@@ -74,11 +131,26 @@ class ComponentViewController: UIViewController {
         setupView()
         session.amount = total
         
+        // Disable purchase button because terms need to be accepted
+        purchaseButton.disabled = true
+        
         // Listen to apple pay results
         applePayCoordinator.$paymentResults
             .receive(on: DispatchQueue.main)
             .sink { [weak self] results in
                 self?.processApplePayResults(results)
+            }
+            .store(in: &cancellables)
+        
+        // Listen to transactionInProgress to show/hide spinner
+        session.$transactionInProgress
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isInProgress in
+                if isInProgress {
+                    self?.showSpinner()
+                } else {
+                    self?.hideSpinner()
+                }
             }
             .store(in: &cancellables)
     }
@@ -327,22 +399,9 @@ class ComponentViewController: UIViewController {
             $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
         }
         
-        let termsFakeLink = UILabel()
-        let textAttributes: [NSAttributedString.Key: Any] = [
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: colorProvider.primary,
-            .font: UIFont.systemFont(ofSize: 14, weight: .bold)
-        ]
-        termsFakeLink.attributedText = NSAttributedString(string: "Terms and Conditions of Service",
-                                                       attributes: textAttributes)
-        termsFakeLink.numberOfLines = 0
-        termsFakeLink.lineBreakMode = .byWordWrapping
-        termsFakeLink.textAlignment = .left
-        termsFakeLink.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        termsFakeLink.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        container.addSubview(termsFakeLink)
+        container.addSubview(termsCheckbox)
         
-        termsFakeLink.snp.makeConstraints {
+        termsCheckbox.snp.makeConstraints {
             $0.top.equalTo(termsLabel.snp.bottom).offset(UIConstants.marginTiny)
             $0.left.equalToSuperview().offset(UIConstants.horizontalScreenEdgeMargin)
             $0.right.equalToSuperview().offset(-UIConstants.horizontalScreenEdgeMargin)
@@ -379,6 +438,16 @@ class ComponentViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    // Spinners
+    func showSpinner() {
+        guard loadingOverlay.superview == nil else { return }
+        view.addSubview(loadingOverlay)
+    }
+    
+    func hideSpinner() {
+        loadingOverlay.removeFromSuperview()
     }
 }
 

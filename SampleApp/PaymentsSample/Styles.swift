@@ -25,7 +25,11 @@ public class DarkColorProvider: MobilePaymentsColorProvider {
     }
     
     public var mediumText: UIColor {
-        UIColor(fromRGBHex: "9E9E9E")
+        UIColor(fromRGBHex: "E0E0E0")
+    }
+    
+    public var highlight: UIColor {
+        UIColor(fromRGBHex: "D5FFFF")
     }
 }
 
@@ -45,61 +49,37 @@ public class CustomColorProvider: MobilePaymentsColorProvider {
     public var background: UIColor {
         UIColor(fromRGBHex: "F2F0EF")
     }
-}
-
-public class RobotoFontFamily: FontFamily {
-    public var regular: UIFont {
-        // Loads in the Roboto-Regular font that is provided in the fonts folder and added to info.plist
-        UIFont(name: "Roboto-Regular", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .regular)
+    
+    public var highlight: UIColor {
+        UIColor(fromRGBHex: "FCE992")
     }
     
-    public var bold: UIFont {
-        // Loads in the Roboto-Bold font that is provided in the fonts folder and added to info.plist
-        UIFont(name: "Roboto-Bold", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
-    }
-}
-
-public class PoppinsFontFamily: FontFamily {
-    public var regular: UIFont {
-        // Loads in the Poppins-Regular font that is provided in the fonts folder and added to info.plist
-        UIFont(name: "Poppins-Regular", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .regular)
+    public var mediumText: UIColor {
+        UIColor(fromRGBHex: "9E9E9E")
     }
     
-    public var bold: UIFont {
-        // Loads in the Poppins-Bold font that is provided in the fonts folder and added to info.plist
-        UIFont(name: "Poppins-Bold", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
+    public var disabledText: UIColor {
+        UIColor(fromRGBHex: "757575")
     }
 }
 
-public class RalewayFontFamily: FontFamily {
+public class SystemFontFamily: FontFamily {
     public var regular: UIFont {
-        // Loads in the Raleway font that is provided in the fonts folder and added to info.plist
-        UIFont(name: "Raleway", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .regular)
+        UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .regular)
     }
     
     public var bold: UIFont {
-        // Loads in the Raleway-Bold font that is provided in the fonts folder and added to info.plist
-        UIFont(name: "Raleway-Bold", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
+        UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
     }
 }
 
 public class CustomFontProvider: MobilePaymentsFontProvider {
     public var headerFont: FontFamily {
-        RobotoFontFamily()
+        SystemFontFamily()
     }
     
     public var bodyFont: FontFamily {
-        RobotoFontFamily()
-    }
-}
-
-public class DarkFontProvider: MobilePaymentsFontProvider {
-    public var headerFont: FontFamily {
-        PoppinsFontFamily()
-    }
-    
-    public var bodyFont: FontFamily {
-        RalewayFontFamily()
+        SystemFontFamily()
     }
 }
 

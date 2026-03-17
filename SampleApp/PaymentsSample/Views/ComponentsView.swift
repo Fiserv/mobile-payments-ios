@@ -18,6 +18,8 @@ struct ComponentsView: View {
     // Use @StateObject if your view creates the object and use @ObservedObject if the object is passed in from another view.
     @StateObject var paymentSession: PaymentSession = PaymentSession()
     
+    @State private var mustAcceptTerms: Bool = true
+    
     @State private var isLoading: Bool = false
     
     @State private var alertTitle: String = ""
@@ -141,7 +143,8 @@ struct ComponentsView: View {
                                 })
                                 .padding(.horizontal)
                                 .payWithApplePayButtonStyle(colorProvider.background == DarkColorProvider().background ? .white : .black)
-                                .disabled(paymentSession.transactionInProgress)
+                                // Disable apple pay button if terms is not accepted or if a transaction in currently in progress
+                                .disabled(paymentSession.transactionInProgress || mustAcceptTerms)
                                 .frame(maxWidth: .infinity, minHeight: 48, maxHeight: 48)
                             }
                             
@@ -152,13 +155,31 @@ struct ComponentsView: View {
                                 .multilineTextAlignment(.leading)
                                 .padding([.horizontal, .top])
                             
-                            Text("Terms and Conditions of Service")
+                            
+                            HStack {
+                                Image(systemName: mustAcceptTerms ? "square" : "checkmark.square.fill")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundStyle(Color(colorProvider.darkText))
+                                    .frame(width: 20, height: 20)
+                                
+                                Group {
+                                    Text("I agree to the ")
+                                        .foregroundStyle(Color(colorProvider.darkText))
+                                    +
+                                    Text("Terms and Conditions of Service")
+                                        .foregroundStyle(Color(colorProvider.primary))
+                                        .underline(color: Color(colorProvider.primary))
+                                        
+                                }
                                 .font(.system(size: 14))
-                                .foregroundStyle(Color(colorProvider.primary))
-                                .underline(color: Color(colorProvider.primary))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .multilineTextAlignment(.leading)
-                                .padding(.horizontal)
+                            }
+                            .onTapGesture {
+                                mustAcceptTerms = !mustAcceptTerms
+                            }
+                            .padding(.horizontal)
                         }
                     }
                     .scrollDismissesKeyboard(.immediately)
@@ -167,7 +188,8 @@ struct ComponentsView: View {
                     // Process the transaction as a sales transaction
                     PurchaseButton(session: paymentSession,
                                    showTotal: false,
-                                   transactionType: .sale) { result in
+                                   transactionType: .sale,
+                                   disabled: $mustAcceptTerms)) { result in
                         if let error = result.error {
                             alertTitle = "Error!"
                             var message = error.localizedDescription
@@ -219,6 +241,10 @@ struct ComponentsView: View {
                 default:
                     break
                 }
+            }
+            .onChange(of: paymentSession.transactionInProgress) { _, isInProgress in
+                // Listen to transaction in progress to show or hide your loading indicator
+                isLoading = isInProgress
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color(colorProvider.background), for: .navigationBar)
