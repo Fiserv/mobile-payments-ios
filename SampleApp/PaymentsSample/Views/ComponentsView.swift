@@ -189,7 +189,7 @@ struct ComponentsView: View {
                     PurchaseButton(session: paymentSession,
                                    showTotal: false,
                                    transactionType: .sale,
-                                   disabled: $mustAcceptTerms)) { result in
+                                   disabled: $mustAcceptTerms) { result in
                         if let error = result.error {
                             alertTitle = "Error!"
                             var message = error.localizedDescription
