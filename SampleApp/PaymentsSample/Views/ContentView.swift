@@ -140,7 +140,7 @@ struct ContentView: View {
             // Generate a random amount from $0.01 - $149.99
             let amount = Decimal(Int.random(in: 1...14_999)) / 100
             // Present the MobilePaymentsPurchaseView
-            // This is a self-contained payment view that fully handle the entire payment flow
+            // This is a self-contained payment view that fully handles the entire payment flow
             MobilePaymentsPurchaseView(amount: amount,
                                        applePayMerchantId: applePayMerchantId,
                                        applePayButtonLabel: .checkout,
@@ -152,11 +152,11 @@ struct ContentView: View {
             ComponentsView(colorProvider: $colorProvider)
         }
         .fullScreenCover(isPresented: $showGuestCheckout) {
-            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
+            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse works
             GuestCheckoutView(colorProvider: $colorProvider)
         }
         .fullScreenCover(isPresented: $showDirect) {
-            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse work
+            // Presents the one time use view. This is an example of how the PurchaseButton's oneTimeUse works
             DirectView(colorProvider: $colorProvider)
         }
         .fullScreenCover(isPresented: $showTokenizePay) {
